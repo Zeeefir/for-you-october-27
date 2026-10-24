@@ -64,14 +64,40 @@ $('audio-file').onchange = e => {
 // Когда запись готова, положите её в assets/voice.mp3 и раскомментируйте:
 // $('voice').src = 'assets/voice.mp3';
 // $('audio-note').textContent = 'Это сообщение — только для тебя.';
-// Семь потоков с разными фазами: сердечки заполняют весь фон уже при открытии.
-for(let i=0;i<42;i++){
-  const heart=document.createElement('span');heart.className='floating-heart';heart.textContent='♡';
-  const column=i%7, row=Math.floor(i/7);
-  const duration=24+Math.random()*16;
-  const phase=(row+.15+Math.random()*.45)/6;
-  heart.style.cssText=`left:${4+column*14+Math.random()*4}%;font-size:${18+Math.random()*32}px;--duration:${duration}s;animation-delay:-${phase*duration}s`;
-  $('hearts').append(heart);
+// Каждый пролёт заново выбирает позицию, изгиб, скорость и прозрачность.
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const randomBetween = (min, max) => min + Math.random() * (max - min);
+function flyHeart(heart, initial = false) {
+  const duration = randomBetween(22000, 47000);
+  const drift = randomBetween(-90, 90);
+  const sway = randomBetween(15, 60) * (Math.random() < .5 ? -1 : 1);
+  const tilt = randomBetween(-24, 24);
+  const opacity = randomBetween(.14, .4);
+  heart.style.cssText = `left:${randomBetween(1,96)}%;font-size:${randomBetween(16,48)}px;animation:none`;
+  const animation = heart.animate([
+    {transform:`translate(0, 0) rotate(${tilt}deg)`,opacity:0,offset:0},
+    {transform:`translate(${sway*.5}px, -20vh) rotate(${-tilt*.4}deg)`,opacity,offset:.18},
+    {transform:`translate(${drift*.5-sway}px, -54vh) rotate(${tilt*.7}deg)`,opacity:opacity*.8,offset:.47},
+    {transform:`translate(${drift+sway*.5}px, -89vh) rotate(${-tilt}deg)`,opacity,offset:.78},
+    {transform:`translate(${drift}px, -120vh) rotate(${tilt*.3}deg)`,opacity:0,offset:1}
+  ], {duration, delay:initial ? 0 : randomBetween(200,2500), easing:'linear', fill:'both'});
+  if(initial) animation.currentTime = Math.random() * duration;
+  animation.onfinish = () => {
+    animation.cancel();
+    if(!reducedMotion.matches) flyHeart(heart);
+  };
 }
+function startHearts() {
+  $('hearts').getAnimations({subtree:true}).forEach(animation => animation.cancel());
+  $('hearts').replaceChildren();
+  if(reducedMotion.matches) return;
+  for(let i=0;i<42;i++){
+    const heart=document.createElement('span');heart.className='floating-heart';heart.textContent='♡';
+    $('hearts').append(heart);
+    flyHeart(heart,true);
+  }
+}
+reducedMotion.addEventListener('change',startHearts);
+startHearts();
 render();
 
