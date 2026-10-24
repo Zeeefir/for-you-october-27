@@ -26,3 +26,34 @@
 }
 @media(max-width:600px){header{padding:calc(17px + env(safe-area-inset-top)) 22px 18px}.signature{font-size:25px}.header-note{display:none}.sound{font-size:11px;padding:9px 13px}main{padding:24px 22px calc(22px + env(safe-area-inset-bottom))}.chapter{font-size:8px;letter-spacing:2px;gap:12px}.line{width:24px}.eyebrow{margin-top:30px;font-size:9px}h1{font-size:57px;letter-spacing:-1.8px}.message{font-size:12px;line-height:1.9;margin-top:19px;max-width:335px}.photos{gap:9px;margin:34px -4px 24px}.photo{padding:5px 5px 0}.photo-area{aspect-ratio:3/4.3}.placeholder-heart{font-size:35px}.placeholder-text{font-size:6px;letter-spacing:0}.photo figcaption{font-size:13px;padding:10px 0}.caption{font-size:17px;max-width:280px;margin:25px auto}.primary{padding:16px 22px;min-width:215px}.back{width:44px;height:44px}#progress{margin:27px 0 30px}footer{font-size:8px;letter-spacing:.3px;gap:8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.floating-heart{display:none}}
+
+/* Фотографии с личными записками на обороте. */
+.photo{padding:0!important;border:0;background:transparent;color:inherit;box-shadow:none;perspective:1000px;text-align:center;isolation:isolate}
+.photo-inner{position:relative;display:grid;width:100%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.7,.2,1)}
+.photo-front,.photo-back{grid-area:1/1;display:block;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid #49303e;background:#171216;box-shadow:0 15px 50px #0008}
+.photo-front{padding:9px 9px 0;transform:rotateY(0deg)}
+.photo-caption{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:18px;color:#c2a5b3;padding:12px 0 5px}
+.photo-hint{display:block;font-size:8px;font-weight:400;letter-spacing:.5px;color:#b78a9f;padding:0 0 10px}
+.photo-back{position:absolute;inset:0;transform:rotateY(180deg);padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at top,#482233,#1c111a 80%);overflow:auto}
+.photo-back-heart{font-family:Georgia,serif;color:var(--pink);font-size:29px;line-height:1;margin-bottom:10px}
+.photo-back-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;line-height:1.1;color:var(--pink)}
+.photo-note{display:block;font-size:11px;line-height:1.85;color:#e1cbd6;margin:13px 0;white-space:pre-line;overflow-wrap:anywhere}
+.photo-back .photo-hint{padding:0;font-size:7px}
+.photo.is-flipped .photo-inner{transform:rotateY(180deg)}
+.photo.is-flipped,.photo:focus-visible{z-index:5;transform:translateY(-8px) rotate(0) scale(1.08)}
+@media(hover:hover) and (pointer:fine){.photo:hover{z-index:5;transform:translateY(-10px) rotate(0) scale(1.16);box-shadow:none}}
+@media(max-width:600px){
+  .photo-front{padding:5px 5px 0}
+  .photo-caption{font-size:13px;padding:9px 0 4px}
+  .photo-hint{font-size:6px;padding-bottom:7px;letter-spacing:0}
+  .photo-back{padding:10px 7px}
+  .photo-back-heart{font-size:20px;margin-bottom:6px}
+  .photo-back-title{font-size:17px}
+  .photo-note{font-size:9px;line-height:1.6;margin:8px 0}
+  .photo-back .photo-hint{font-size:6px}
+  .photo.is-flipped{transform:translateY(-6px) rotate(0) scale(1.35)}
+  .photo:first-child{transform-origin:left center}
+  .photo:last-child{transform-origin:right center}
+}
+@media(prefers-reduced-motion:reduce){.photo-inner{transition:none}}
+
