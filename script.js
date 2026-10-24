@@ -40,19 +40,30 @@ function renderNicknameQuiz(){
     const rail=document.createElement('span');rail.className='nickname-rail';rail.setAttribute('aria-hidden','true');
     const fill=document.createElement('span');fill.className='nickname-fill';rail.append(fill);
     const thumb=document.createElement('span');thumb.className='nickname-thumb';thumb.setAttribute('aria-hidden','true');
-    const input=document.createElement('input');input.type='range';input.min=0;input.max=10;input.step=.5;input.id=label.htmlFor;
+    const input=document.createElement('input');input.type='range';input.min=0;input.max=10;input.step=.01;input.id=label.htmlFor;
     input.value=nicknameScores[name]??5;
     function update(){
       const value=Number(input.value), percent=value*10;
-      const formatted=value.toLocaleString('ru-RU');
+      const formatted=value.toLocaleString('ru-RU',{maximumFractionDigits:2});
       output.textContent=`${formatted} / 10`;
       fill.style.width=`${percent}%`;
       thumb.style.left=`calc(${percent}% + ${15-percent*.3}px)`;
       input.setAttribute('aria-valuetext',`${formatted} из 10`);
     }
-    input.oninput=()=>{
+    function snap(){
+      slider.classList.add('is-snapping');
+      input.value=Math.round(Number(input.value)*2)/2;
       nicknameScores[name]=Number(input.value);update();
       try{localStorage.setItem('birthday-nicknames',JSON.stringify(nicknameScores));}catch{}
+    }
+    input.oninput=()=>{slider.classList.remove('is-snapping');update();};
+    input.onchange=snap;
+    input.onkeydown=event=>{
+      const moves={ArrowRight:.5,ArrowUp:.5,ArrowLeft:-.5,ArrowDown:-.5,PageUp:1,PageDown:-1};
+      if(!(event.key in moves) && event.key!=='Home' && event.key!=='End') return;
+      event.preventDefault();
+      input.value=event.key==='Home'?0:event.key==='End'?10:Math.min(10,Math.max(0,Number(input.value)+moves[event.key]));
+      snap();
     };
     update();slider.append(rail,thumb,input);row.append(label,output,slider);quiz.append(row);
   });
