@@ -20,7 +20,7 @@ let nicknameScores={};
 try{
   const saved=JSON.parse(localStorage.getItem('birthday-nicknames')||'{}');
   if(saved && typeof saved==='object') nicknames.forEach(name=>{
-    if(Number.isInteger(saved[name]) && saved[name]>=0 && saved[name]<=10) nicknameScores[name]=saved[name];
+    if(Number.isFinite(saved[name]) && Number.isInteger(saved[name]*2) && saved[name]>=0 && saved[name]<=10) nicknameScores[name]=saved[name];
   });
 }catch{}
 let current = 0;
@@ -36,18 +36,25 @@ function renderNicknameQuiz(){
     const row=document.createElement('div');row.className='nickname-row';
     const label=document.createElement('label');label.htmlFor=`nickname-${i}`;label.textContent=name;
     const output=document.createElement('output');output.htmlFor=label.htmlFor;
-    const input=document.createElement('input');input.type='range';input.min=0;input.max=10;input.step=1;input.id=label.htmlFor;
+    const slider=document.createElement('span');slider.className='nickname-slider';
+    const rail=document.createElement('span');rail.className='nickname-rail';rail.setAttribute('aria-hidden','true');
+    const fill=document.createElement('span');fill.className='nickname-fill';rail.append(fill);
+    const thumb=document.createElement('span');thumb.className='nickname-thumb';thumb.setAttribute('aria-hidden','true');
+    const input=document.createElement('input');input.type='range';input.min=0;input.max=10;input.step=.5;input.id=label.htmlFor;
     input.value=nicknameScores[name]??5;
     function update(){
-      output.textContent=`${input.value} / 10`;
-      input.style.setProperty('--fill',`${Number(input.value)*10}%`);
-      input.setAttribute('aria-valuetext',`${input.value} из 10`);
+      const value=Number(input.value), percent=value*10;
+      const formatted=value.toLocaleString('ru-RU');
+      output.textContent=`${formatted} / 10`;
+      fill.style.width=`${percent}%`;
+      thumb.style.left=`calc(${percent}% + ${15-percent*.3}px)`;
+      input.setAttribute('aria-valuetext',`${formatted} из 10`);
     }
     input.oninput=()=>{
       nicknameScores[name]=Number(input.value);update();
       try{localStorage.setItem('birthday-nicknames',JSON.stringify(nicknameScores));}catch{}
     };
-    update();row.append(label,output,input);quiz.append(row);
+    update();slider.append(rail,thumb,input);row.append(label,output,slider);quiz.append(row);
   });
   const note=document.createElement('p');note.className='nickname-save-note';
   note.textContent='Ответы останутся на этом устройстве. Можешь прислать мне скриншот ♡';quiz.append(note);
