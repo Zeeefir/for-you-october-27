@@ -20,13 +20,33 @@ function render() {
   $('chapter').textContent = '27 ОКТЯБРЯ — ТВОЙ ДЕНЬ';
   $('back').disabled = current === 0;
   $('photos').replaceChildren(...page.labels.map((label, i) => {
-    const figure = document.createElement('figure'); figure.className = 'photo';
+    const figure = document.createElement('button'); figure.type = 'button'; figure.className = 'photo';
+    figure.setAttribute('aria-label', `${label} — прочитать на обороте`);
+    figure.setAttribute('aria-pressed', 'false');
+    const inner = document.createElement('span'); inner.className = 'photo-inner';
+    const front = document.createElement('span'); front.className = 'photo-front';
     const area = document.createElement('div'); area.className = 'photo-area';
     area.innerHTML = '<span class="placeholder-heart">♡</span><span class="placeholder-text">здесь будет наше фото</span>';
     const img = document.createElement('img'); img.alt = label;
     img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); img.src = photoPath(current, i);
-    const caption = document.createElement('figcaption'); caption.textContent = label;
-    figure.append(area, caption); return figure;
+    const caption = document.createElement('span'); caption.className = 'photo-caption'; caption.textContent = label;
+    const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = 'переверни ♡';
+    const back = document.createElement('span'); back.className = 'photo-back'; back.setAttribute('aria-hidden','true');
+    const heart = document.createElement('span'); heart.className = 'photo-back-heart'; heart.textContent = '♡';
+    const heading = document.createElement('span'); heading.className = 'photo-back-title'; heading.textContent = 'Почему я люблю это фото';
+    const note = document.createElement('span'); note.className = 'photo-note';
+    // Добавьте photoNotes: ['Текст для первого фото', 'Для второго', 'Для третьего'] в нужную главу.
+    note.textContent = page.photoNotes?.[i] || 'Здесь будет моя маленькая история о том, почему этот снимок мне так дорог.';
+    const backHint = document.createElement('span'); backHint.className = 'photo-hint'; backHint.textContent = 'нажми, чтобы вернуться ↶';
+    back.append(heart, heading, note, backHint);
+    front.append(area, caption, hint); inner.append(front,back); figure.append(inner);
+    figure.onclick = () => {
+      const flipped = figure.classList.toggle('is-flipped');
+      figure.setAttribute('aria-pressed',String(flipped));
+      figure.setAttribute('aria-label',flipped ? `${label} — вернуться к фотографии` : `${label} — прочитать на обороте`);
+      front.setAttribute('aria-hidden',String(flipped)); back.setAttribute('aria-hidden',String(!flipped));
+    };
+    return figure;
   }));
   $('progress').replaceChildren(...pages.map((_,i) => {
     const button = document.createElement('button'); button.className = i === current ? 'active' : '';
