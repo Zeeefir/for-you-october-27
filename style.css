@@ -40,7 +40,7 @@
 .photo-note{display:block;font-size:11px;line-height:1.85;color:#e1cbd6;margin:13px 0;white-space:pre-line;overflow-wrap:anywhere}
 .photo-back .photo-hint{padding:0;font-size:7px}
 .photo.is-flipped .photo-inner{transform:rotateY(180deg)}
-.photo.is-flipped,.photo:focus-visible{z-index:5;transform:translateY(-8px) rotate(0) scale(1.08)}
+.photo:focus-visible{z-index:5;transform:translateY(-8px) rotate(0) scale(1.08)}
 @media(hover:hover) and (pointer:fine){.photo:hover{z-index:5;transform:translateY(-10px) rotate(0) scale(1.16);box-shadow:none}}
 @media(max-width:600px){
   .photo-front{padding:5px 5px 0}
@@ -51,7 +51,7 @@
   .photo-back-title{font-size:17px}
   .photo-note{font-size:9px;line-height:1.6;margin:8px 0}
   .photo-back .photo-hint{font-size:6px}
-  .photo.is-flipped{transform:translateY(-6px) rotate(0) scale(1.35)}
+  .photo.is-flipped{z-index:5;transform:translateY(-6px) rotate(0) scale(1.35)}
   .photo:first-child{transform-origin:left center}
   .photo:last-child{transform-origin:right center}
 }
@@ -71,3 +71,4 @@
 .quiz-scene .message{font-size:12px}
 @media(min-width:1000px){#scene.quiz-scene{padding-top:40px;padding-bottom:30px}.quiz-scene .photo:nth-child(3){top:400px}}
 @media(max-width:600px){.nickname-quiz{padding:17px 20px;margin-top:23px}.nickname-row{margin:19px 0}.nickname-row input{margin-top:9px}.quiz-scene h1{font-size:49px}.nickname-save-note{font-size:10px}}
+
