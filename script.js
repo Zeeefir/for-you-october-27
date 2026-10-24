@@ -64,9 +64,14 @@ $('audio-file').onchange = e => {
 // Когда запись готова, положите её в assets/voice.mp3 и раскомментируйте:
 // $('voice').src = 'assets/voice.mp3';
 // $('audio-note').textContent = 'Это сообщение — только для тебя.';
-for(let i=0;i<18;i++){
+// Семь потоков с разными фазами: сердечки заполняют весь фон уже при открытии.
+for(let i=0;i<42;i++){
   const heart=document.createElement('span');heart.className='floating-heart';heart.textContent='♡';
-  heart.style.cssText=`left:${Math.random()*100}%;font-size:${18+Math.random()*40}px;--duration:${17+Math.random()*21}s;animation-delay:-${Math.random()*38}s`;
+  const column=i%7, row=Math.floor(i/7);
+  const duration=24+Math.random()*16;
+  const phase=(row+.15+Math.random()*.45)/6;
+  heart.style.cssText=`left:${4+column*14+Math.random()*4}%;font-size:${18+Math.random()*32}px;--duration:${duration}s;animation-delay:-${phase*duration}s`;
   $('hearts').append(heart);
 }
 render();
+
