@@ -7,9 +7,52 @@ const pages = [
   {eyebrow:'САМОЕ ВАЖНОЕ',title:'Я люблю тебя. <em>Очень.</em>',message:'С твоим восемнадцатилетием, любимая. Желаю тебе смелости идти к мечтам, людей, с которыми тепло, и дней, которые хочется запоминать. Я хочу поддерживать тебя, слушать и делить с тобой и большие события, и обычные вечера.\nТы очень много для меня значишь.',caption:'Есть слова, которые хочется сказать своим голосом.',button:'Послушай меня',labels:['моя нежность','моя радость','моя любовь']},
   {eyebrow:'ДО НАШЕЙ ВСТРЕЧИ',title:'Одно объятие <em>я тебе уже должен.</em>',message:'Когда мы встретимся, я скажу всё это ещё раз. Уже обнимая тебя. А сегодня знай: я думаю о тебе и очень хочу, чтобы ты была счастлива.\nС днём рождения, моя любимая.',caption:'Расстояние есть. И любовь тоже есть.',button:'Обнять тебя ♡',labels:['ты','мы','наше впереди']}
 ];
+pages.forEach((page,i)=>{page.photoFolder=i+1;});
+pages.splice(5,0,{
+  eyebrow:'У ТЕБЯ СТОЛЬКО НЕЖНЫХ ИМЁН',
+  title:'Как тебе <em>приятнее, лучик?</em>',
+  message:'Любимая, солнышко, принцесса… В каждом слове — моя нежность к тебе. А какие из них ты любишь больше? Подвинь ползунки и расскажи мне ♡',
+  caption:'Как бы я тебя ни называл — ты всегда моя любимая.',
+  button:'И последнее…',labels:['моё солнышко','моя принцесса','мой лучик'],photoFolder:7,quiz:true
+});
+const nicknames=['Любимая','Солнышко','Принцесса','Котик','Киса','Лучик солнца'];
+let nicknameScores={};
+try{
+  const saved=JSON.parse(localStorage.getItem('birthday-nicknames')||'{}');
+  if(saved && typeof saved==='object') nicknames.forEach(name=>{
+    if(Number.isInteger(saved[name]) && saved[name]>=0 && saved[name]<=10) nicknameScores[name]=saved[name];
+  });
+}catch{}
 let current = 0;
 const $ = id => document.getElementById(id);
-const photoPath = (page, slot) => `assets/photos/${page + 1}-${slot + 1}.jpg`;
+const photoPath = (page, slot) => `assets/photos/${pages[page].photoFolder}-${slot + 1}.jpg`;
+function renderNicknameQuiz(){
+  document.querySelector('.nickname-quiz')?.remove();
+  $('scene').classList.toggle('quiz-scene',Boolean(pages[current].quiz));
+  if(!pages[current].quiz) return;
+  const quiz=document.createElement('div');quiz.className='nickname-quiz';
+  const scale=document.createElement('p');scale.className='nickname-scale';scale.textContent='0 — не моё · 10 — таю от нежности';quiz.append(scale);
+  nicknames.forEach((name,i)=>{
+    const row=document.createElement('div');row.className='nickname-row';
+    const label=document.createElement('label');label.htmlFor=`nickname-${i}`;label.textContent=name;
+    const output=document.createElement('output');output.htmlFor=label.htmlFor;
+    const input=document.createElement('input');input.type='range';input.min=0;input.max=10;input.step=1;input.id=label.htmlFor;
+    input.value=nicknameScores[name]??5;
+    function update(){
+      output.textContent=`${input.value} / 10`;
+      input.style.setProperty('--fill',`${Number(input.value)*10}%`);
+      input.setAttribute('aria-valuetext',`${input.value} из 10`);
+    }
+    input.oninput=()=>{
+      nicknameScores[name]=Number(input.value);update();
+      try{localStorage.setItem('birthday-nicknames',JSON.stringify(nicknameScores));}catch{}
+    };
+    update();row.append(label,output,input);quiz.append(row);
+  });
+  const note=document.createElement('p');note.className='nickname-save-note';
+  note.textContent='Ответы останутся на этом устройстве. Можешь прислать мне скриншот ♡';quiz.append(note);
+  document.querySelector('.copy').append(quiz);
+}
 function render() {
   const page = pages[current];
   $('eyebrow').textContent = page.eyebrow;
@@ -19,6 +62,7 @@ function render() {
   $('next-label').textContent = page.button;
   $('chapter').textContent = '27 ОКТЯБРЯ — ТВОЙ ДЕНЬ';
   $('back').disabled = current === 0;
+  renderNicknameQuiz();
   $('photos').replaceChildren(...page.labels.map((label, i) => {
     const figure = document.createElement('button'); figure.type = 'button'; figure.className = 'photo';
     figure.setAttribute('aria-label', `${label} — прочитать на обороте`);
@@ -67,14 +111,14 @@ function burst(button, count = 10) {
 $('next').onclick = () => {
   burst($('next'));
   if(current === 4){$('audio-dialog').showModal();return;}
-  if(current === 5){$('caption').textContent='Обнимаю крепко. С днём рождения, моя любимая ♡';burst($('next'),24);return;}
+  if(current === pages.length-1){$('caption').textContent='Обнимаю крепко. С днём рождения, моя любимая ♡';burst($('next'),24);return;}
   current++;render();
 };
 $('back').onclick=()=>{if(current>0){current--;render();}};
 document.querySelector('.signature').onclick=e=>{e.preventDefault();current=0;render();};
 $('sound').onclick=()=>$('audio-dialog').showModal();
-$('close-audio').onclick=()=>{$('voice').pause();$('audio-dialog').close();if(current===4){current++;render();}};
-$('audio-dialog').addEventListener('close',()=>$('voice').pause());
+$('close-audio').onclick=()=>$('audio-dialog').close();
+$('audio-dialog').addEventListener('close',()=>{$('voice').pause();if(current===4){current++;render();}});
 let audioUrl;
 $('audio-file').onchange = e => {
   const file=e.target.files[0];if(!file)return;
@@ -120,4 +164,3 @@ function startHearts() {
 reducedMotion.addEventListener('change',startHearts);
 startHearts();
 render();
-

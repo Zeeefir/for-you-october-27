@@ -57,3 +57,17 @@
 }
 @media(prefers-reduced-motion:reduce){.photo-inner{transition:none}}
 
+.nickname-quiz{position:relative;z-index:2;width:100%;max-width:425px;margin:25px auto 0;padding:20px 24px;border:1px solid #54313f;border-radius:18px;background:#160f16e8;text-align:left}
+.nickname-scale,.nickname-save-note{color:#ba9caa;font-size:10px;line-height:1.8;margin:0 0 18px;text-align:center}
+.nickname-row{display:grid;grid-template-columns:1fr auto;gap:9px 14px;margin:16px 0}
+.nickname-row label{color:#f0c9da;font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-style:italic}
+.nickname-row output{font-size:10px;color:#c796ac;align-self:center;font-variant-numeric:tabular-nums}
+.nickname-row input{grid-column:1/-1;width:100%;margin:4px 0 8px;height:7px;border-radius:10px;appearance:none;-webkit-appearance:none;background:linear-gradient(to right,#edacc8 var(--fill),#402331 var(--fill));cursor:pointer;touch-action:pan-y}
+.nickname-row input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;border:5px solid #f6c3d9;background:#9c4e71;box-shadow:0 0 15px #e8a1c033}
+.nickname-row input::-moz-range-thumb{width:14px;height:14px;border:5px solid #f6c3d9;border-radius:50%;background:#9c4e71}
+.nickname-row input:focus-visible{outline:2px solid var(--pink);outline-offset:9px}
+.nickname-save-note{font-size:9px;margin:17px 0 0}
+.quiz-scene h1{font-size:clamp(47px,4.2vw,65px)}
+.quiz-scene .message{font-size:12px}
+@media(min-width:1000px){#scene.quiz-scene{padding-top:40px;padding-bottom:30px}.quiz-scene .photo:nth-child(3){top:400px}}
+@media(max-width:600px){.nickname-quiz{padding:17px 20px;margin-top:23px}.nickname-row{margin:19px 0}.nickname-row input{margin-top:9px}.quiz-scene h1{font-size:49px}.nickname-save-note{font-size:10px}}
