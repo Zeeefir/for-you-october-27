@@ -44,7 +44,7 @@ function renderNicknameQuiz(){
     input.value=nicknameScores[name]??5;
     function update(){
       const value=Number(input.value), percent=value*10;
-      const formatted=value.toLocaleString('ru-RU',{maximumFractionDigits:2});
+      const formatted=(Math.round(value*2)/2).toLocaleString('ru-RU');
       output.textContent=`${formatted} / 10`;
       fill.style.width=`${percent}%`;
       thumb.style.left=`calc(${percent}% + ${15-percent*.3}px)`;
