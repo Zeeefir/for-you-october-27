@@ -63,7 +63,8 @@ pages.splice(7,0,{
 pages.find(page=>page.friends).photos[1]={src:'assets/photos/friend-artur.jpg',position:'center'};
 pages.find(page=>page.friends).photos[2]={src:'assets/photos/friend-oksana.jpg',position:'center 40%'};
 pages.find(page=>page.friends).photos[3]={src:'assets/photos/friend-girls.jpg',position:'center 60%'};
-pages.find(page=>page.friends).photos[0]={src:'assets/photos/friend-den.jpg',position:'center'};
+pages.find(page=>page.friends).photos[0]={src:'assets/photos/friend-den.jpg',position:'right center'};
+pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim.jpg',position:'center'};
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
 finale.labels=['Провожали тебя всей семьёй','Вместе в Астане','Твоя улыбка — мой подарок'];
@@ -444,3 +445,4 @@ document.addEventListener('pointerleave',()=>{lastHeartPoint=null;});
 reducedMotion.addEventListener('change',()=>{
   if(reducedMotion.matches){cursorHearts.forEach(heart=>heart.remove());cursorHearts.clear();}
 });
+
