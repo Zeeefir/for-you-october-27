@@ -359,3 +359,16 @@ html{scrollbar-gutter:stable}
 @keyframes envelope-letter-rise{from{transform:translateY(0)}to{transform:translateY(var(--letter-rise))}}
 @media(max-height:740px){.envelope{--letter-rise:-48px}}
 @media(prefers-reduced-motion:reduce){#site-content{transition:none}.envelope-button.is-open .envelope-flap,.envelope-button.is-open .envelope-letter{animation:none!important}}
+
+/* После смены стороны текст рисуется без разворота на постоянном 3D-слое. */
+.photo-inner{transform-style:flat;transition:none;transform:none}
+.photo.is-flipped .photo-inner{transform:none}
+.photo-front,.photo-back{backface-visibility:visible;-webkit-backface-visibility:visible;transform:none}
+.photo-front{visibility:visible;opacity:1}
+.photo-back{visibility:hidden;opacity:0;pointer-events:none}
+.photo.is-flipped .photo-front{visibility:hidden;opacity:0;pointer-events:none}
+.photo.is-flipped .photo-back{visibility:visible;opacity:1;pointer-events:auto}
+.photo.is-turning .photo-inner{animation:photo-soft-flip .36s ease-in-out both}
+@keyframes photo-soft-flip{0%{transform:scaleX(1)}50%{transform:scaleX(.025)}100%{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.photo.is-turning .photo-inner{animation:none!important}}
+.photo{perspective:none}

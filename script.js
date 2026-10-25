@@ -43,6 +43,7 @@ pages[2].photoNotes=['Я пришёл к тебе на урок, а нас вы�
 pages[3].photoNotes=['Тогда Матвейка подарил тебе одноразку. Ты чуть нас не прибила — ведь твой папа про это знал. Такое не забудешь 😅','Здесь мы фотографировались на новый iPhone 16 твоей тёти. Помню, как тебе понравилась его камера ♡','А тут мы фотографировались для отчёта: вот, день рождения отмечаем, всё как положено, пххпхп ♡','Ещё одно фото для отчёта, но уже с твоей тётей — той самой, на чей новый iPhone мы фотографировались на втором снимке ♡'];
 pages[5].photoNotes=['Хотели сделать красивые фотографии субарика, а заодно получились и наши — просто волшебные. Этот закат, ты рядом… ♡','Здесь ты меня всего расцеловала, а потом мы пошли показывать это маме. Она была в шоке, пххпхп ♡','Собирались поехать и вкусно покушать. Вот только в честь чего — уже не помню 🤔'];
 pages[6].photoNotes=['Здесь ты уже была в самолёте. Мы тогда испытывали такие разные эмоции: я следил за твоим полётом, а ты делала фоточки ♡','Это была такая вайбовая прогулка после «Шага». Я провожал тебя домой к бабушке — очень тёплое воспоминание о нас ♡','А это уже продолжение того вечера. Ждали наш заказ и решили немного пофоткаться — получились такие забавные мы ♡'];
+pages[7].photoNotes=['Ты решила пофоткаться и была немного злюсей, а я решил сделать тебе улыбочку. Вот так и получился этот кадр ♡'];
 pages[pages.length-1].button='Послушай меня ♡';
 pages[pages.length-1].audio=true;
 pages.push({
@@ -159,10 +160,17 @@ function render() {
     back.append(heart, heading, note, backHint);
     front.append(area, caption, hint); inner.append(front,back); figure.append(inner);
     figure.onclick = () => {
-      const flipped = figure.classList.toggle('is-flipped');
-      figure.setAttribute('aria-pressed',String(flipped));
-      figure.setAttribute('aria-label',flipped ? `${label} — вернуться к фотографии` : `${label} — прочитать на обороте`);
-      front.setAttribute('aria-hidden',String(flipped)); back.setAttribute('aria-hidden',String(!flipped));
+      if(figure.classList.contains('is-turning'))return;
+      const changeSide=()=>{
+        const flipped = figure.classList.toggle('is-flipped');
+        figure.setAttribute('aria-pressed',String(flipped));
+        figure.setAttribute('aria-label',flipped ? `${label} — вернуться к фотографии` : `${label} — прочитать на обороте`);
+        front.setAttribute('aria-hidden',String(flipped)); back.setAttribute('aria-hidden',String(!flipped));
+      };
+      if(reducedMotion.matches){changeSide();return;}
+      figure.classList.add('is-turning');
+      setTimeout(changeSide,180);
+      setTimeout(()=>figure.classList.remove('is-turning'),380);
     };
     return figure;
   }));
