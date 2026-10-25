@@ -441,3 +441,5 @@ html{scrollbar-gutter:stable}
 @media(min-width:601px){.friend-letter[open]{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:34px;padding-left:30px;padding-right:30px}.friend-picture img{max-height:73svh}}
 .friends-scene .photos{scrollbar-width:none;-ms-overflow-style:none}
 .friends-scene .photos::-webkit-scrollbar{display:none;width:0;height:0}
+/* Полный кадр Максима: рамка не отрезает человека слева. */
+.friends-scene .photo-area:has(img[src*="friend-maxim"]){aspect-ratio:1334/1179}
