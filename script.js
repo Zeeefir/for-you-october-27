@@ -353,7 +353,7 @@ $('welcome-start').onclick=()=>{
   $('welcome-start').classList.add('is-open');
   $('envelope-label').textContent='С любовью, для тебя…';
   playBackgroundMusic();
-  setTimeout(openWelcome,reducedMotion.matches?0:1150);
+  setTimeout(openWelcome,reducedMotion.matches?0:1500);
 };
 function openWelcome(){
   $('site-content').inert=false;

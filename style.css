@@ -342,3 +342,20 @@ body.welcome-open{overflow:hidden}
 .photo-note::-webkit-scrollbar-track{background:transparent}
 .photo-note::-webkit-scrollbar-button{display:none;width:0;height:0}
 @media(max-width:600px){.photo-back{padding:10px 7px}.photo-back-title{font-size:13px;line-height:1.15}.photo-back-heart{font-size:17px;margin-bottom:5px}.photo-note{font-size:9px;line-height:1.5;margin:7px 0}.photo-back .photo-hint{font-size:6px}}
+
+/* Последовательное открытие письма без скачков слоёв и hover-состояния. */
+html{scrollbar-gutter:stable}
+#site-content{transition:opacity .7s ease;opacity:1}
+.welcome-open #site-content{opacity:0}
+.envelope{perspective:650px;filter:none;--letter-rise:-58px;transition:transform .35s ease}
+.envelope:before{box-shadow:0 8px 20px #0006}
+.envelope-button:not(:disabled):hover .envelope,.envelope-button.is-open .envelope{transform:translateY(-4px)}
+.envelope-flap{backface-visibility:visible;-webkit-backface-visibility:visible;transition:none}
+.envelope-letter{transition:none}
+.envelope-button.is-open .envelope-flap{animation:envelope-flap-open .6s cubic-bezier(.4,0,.2,1) both;transform:none}
+.envelope-button.is-open .envelope-letter{animation:envelope-letter-rise .65s .6s cubic-bezier(.2,.65,.25,1) both;transform:none}
+.envelope-button.is-open .envelope-seal{opacity:0;transition:opacity .2s}
+@keyframes envelope-flap-open{0%{transform:rotateX(0deg);z-index:4}49%{z-index:4}50%{z-index:1}100%{transform:rotateX(180deg);z-index:1}}
+@keyframes envelope-letter-rise{from{transform:translateY(0)}to{transform:translateY(var(--letter-rise))}}
+@media(max-height:740px){.envelope{--letter-rise:-48px}}
+@media(prefers-reduced-motion:reduce){#site-content{transition:none}.envelope-button.is-open .envelope-flap,.envelope-button.is-open .envelope-letter{animation:none!important}}
