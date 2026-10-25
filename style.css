@@ -299,3 +299,10 @@ body.welcome-open{overflow:hidden}
   .welcome-overline{line-height:1.7}
 }
 @media(max-width:360px){#welcome-title{font-size:60px}.welcome-note{font-size:11px}.welcome-kicker{font-size:17px}.signature{font-size:23px}}
+@media(max-width:600px){
+  .music-player{width:100%;max-width:none;margin:18px auto 22px;box-sizing:border-box}
+  .music-art{flex-shrink:0}
+  .music-volume input{flex:1;min-width:0;width:0;height:26px;background:transparent}
+  .music-volume{width:100%;min-width:0}
+  .music-controls{width:100%;min-width:0}
+}
