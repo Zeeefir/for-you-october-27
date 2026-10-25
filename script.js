@@ -53,6 +53,13 @@ pages.push({
   caption:'Пусть сегодня у тебя будет много поводов для счастья.',
   button:'Я улыбаюсь ♡',labels:[],photos:[],smile:true
 });
+pages.splice(7,0,{
+  eyebrow:'ЕЩЁ НЕМНОГО ТЕПЛА',
+  title:'Друзья тоже хотят <em>тебя поздравить ♡</em>',
+  message:'Сегодня тёплые слова для тебя есть не только у меня. Твои друзья тоже хотят сделать этот день особенным.',
+  caption:'Их поздравления совсем скоро появятся здесь ♡',
+  button:'Дальше ♡',photos:[],labels:[],friends:true
+});
 const nicknames=['Любимая','Солнышко','Принцесса','Котик','Киса','Лучик солнца'];
 let nicknameScores={};
 try{
@@ -61,7 +68,7 @@ try{
     if(Number.isFinite(saved[name]) && Number.isInteger(saved[name]*2) && saved[name]>=0 && saved[name]<=10) nicknameScores[name]=saved[name];
   });
 }catch{}
-const slideKeys=['intro','hugs','memories','birthday','gallery','love','nicknames','meeting','smile'];
+const slideKeys=['intro','hugs','memories','birthday','gallery','love','nicknames','friends','meeting','smile'];
 pages.forEach((page,i)=>{page.key=slideKeys[i];});
 let current = 0;
 try{
@@ -132,6 +139,8 @@ function render() {
   $('scene').classList.toggle('gallery-scene',Boolean(page.gallery));
   $('scene').classList.toggle('four-photos',page.photos.length===4);
   $('scene').classList.toggle('smile-scene',Boolean(page.smile));
+  $('scene').classList.toggle('friends-scene',Boolean(page.friends));
+  $('friends-placeholder').hidden=!page.friends;
   document.querySelector('main').classList.toggle('gallery-mode',Boolean(page.gallery));
   $('photos').dataset.count=page.photos.length;
   renderNicknameQuiz();
