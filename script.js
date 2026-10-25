@@ -194,11 +194,13 @@ let audioUrl;
 $('audio-file').onchange = e => {
   const file=e.target.files[0];if(!file)return;
   if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(file);$('voice').src=audioUrl;
+  $('voice').hidden=false;
   $('audio-note').textContent='Запись готова. Нажми ▶, чтобы услышать её.';
 };
 // Когда запись готова, положите её в assets/voice.mp3 и раскомментируйте:
 // $('voice').src = 'assets/voice.mp3';
 // $('audio-note').textContent = 'Это сообщение — только для тебя.';
+$('voice').addEventListener('loadedmetadata',()=>{$('voice').hidden=false;});
 // Каждый пролёт заново выбирает позицию, изгиб, скорость и прозрачность.
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const randomBetween = (min, max) => min + Math.random() * (max - min);
@@ -240,7 +242,7 @@ render();
 const musicTracks=[
   {title:'цветы',artist:'тёмный принц',src:''}, // assets/music/flowers.mp3
   {title:'Париж',artist:'kokoshka, Satyr',src:''}, // assets/music/paris.mp3
-  {title:'Sometimes',artist:'Matteux, Princess Chelsea, Videoclub',src:''}, // assets/music/sometimes.mp3
+  {title:'Sometimes',artist:'Mattyeux, Princess Chelsea, Videoclub',src:''}, // assets/music/sometimes.mp3
   {title:'ты случилась',artist:'мартин',src:''} // assets/music/you-happened.mp3
 ];
 let musicIndex=0;
