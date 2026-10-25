@@ -404,3 +404,16 @@ html{scrollbar-gutter:stable}
 @keyframes letter-unfold{0%{transform:translateY(0)}100%{transform:translateY(-54px)}}
 .envelope-button.is-open .envelope-seal{opacity:0}
 .friend-dialog .photo img{object-fit:contain}.friend-dialog .photo-area{background:#140f14}
+/* Живой ряд фотографий друзей, как снимки на память. */
+.friends-scene .photos{padding-top:35px;padding-bottom:40px;gap:19px}
+.friends-scene .photo:nth-child(n){transform:translateY(var(--photo-shift)) rotate(var(--photo-angle));transition:transform .35s ease;transform-origin:center center}
+.friends-scene .photo:nth-child(1){--photo-angle:-6deg;--photo-shift:8px}
+.friends-scene .photo:nth-child(2){--photo-angle:4deg;--photo-shift:-9px}
+.friends-scene .photo:nth-child(3){--photo-angle:-3deg;--photo-shift:12px}
+.friends-scene .photo:nth-child(4){--photo-angle:7deg;--photo-shift:-4px}
+.friends-scene .photo:nth-child(5){--photo-angle:-5deg;--photo-shift:6px}
+.friends-scene .photo:nth-child(6){--photo-angle:3deg;--photo-shift:-11px}
+.friends-scene .photo:nth-child(7){--photo-angle:-4deg;--photo-shift:5px}
+@media(hover:hover){.friends-scene .photo:nth-child(n):hover{transform:translateY(-12px) rotate(0deg) scale(1.035);z-index:5}}
+.friends-scene .photo:nth-child(n):focus-visible{transform:translateY(-12px) rotate(0deg);z-index:5}
+@media(prefers-reduced-motion:reduce){.friends-scene .photo:nth-child(n){transition:none}}
