@@ -271,3 +271,8 @@ body.welcome-open{overflow:hidden}
 .music-track{border-radius:14px;padding:12px}
 .music-track[aria-pressed=true]{background:#f2c1d91a}
 @media(max-width:600px){.music-player{width:290px;max-width:100%;padding:17px 19px 12px;border-radius:27px}.music-info strong{font-size:14px}.music-art{width:47px;height:47px}.music-controls{gap:8px 17px;margin-top:10px}.music-volume input{width:100%}.music-status{margin-top:9px}}
+.music-volume input{border:0;border-radius:999px;outline:none}
+.music-volume input:focus-visible{outline:1px solid #efc1d885;outline-offset:5px;border-radius:999px}
+.music-volume input::-webkit-slider-runnable-track{height:5px;border:0;border-radius:999px;background:#dca6c02b}
+.music-volume input::-webkit-slider-thumb{margin-top:-3.5px}
+.music-volume input::-moz-range-track,.music-volume input::-moz-range-progress{height:5px;border:0;border-radius:999px}
