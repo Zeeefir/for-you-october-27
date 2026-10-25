@@ -58,7 +58,7 @@ pages.splice(7,0,{
   title:'Друзья тоже хотят <em>тебя поздравить ♡</em>',
   message:'Сегодня тёплые слова для тебя есть не только у меня. Твои друзья тоже хотят сделать этот день особенным.',
   caption:'Нажми на фото — открой поздравление ♡',
-  button:'Дальше ♡',photos:Array.from({length:7},()=>({src:'',position:'center'})),labels:Array(7).fill('Имя'),friends:true
+  button:'Дальше ♡',photos:Array.from({length:7},()=>({src:'',position:'center'})),labels:['Дэн','Артур','Оксана','Аружан','Анель','Саша','Максим'],friends:true
 });
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
@@ -200,10 +200,10 @@ function render() {
 }
 function openFriendCard(source,index){
   const dialog=document.createElement('dialog');dialog.className='friend-dialog';
-  dialog.setAttribute('aria-label',`Поздравление ${index+1} — Имя`);
+  dialog.setAttribute('aria-label',`Поздравление — ${pages[current].labels[index]}`);
   const close=document.createElement('button');close.className='close';close.textContent='×';close.setAttribute('aria-label','Закрыть поздравление');
   const card=source.cloneNode(true);card.className='photo friend-expanded';
-  card.querySelector('.photo-back-title').textContent='Имя';
+  card.querySelector('.photo-back-title').textContent=pages[current].labels[index];
   card.querySelector('.photo-note').textContent='Здесь будет текст поздравления ♡';
   const flip=()=>{
     if(card.classList.contains('is-turning'))return;
