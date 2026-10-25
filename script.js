@@ -1,4 +1,4 @@
-// Замените тексты и пути к фото здесь. На каждом экране — три фотографии.
+// Личные тексты, фотографии и подписи к главам.
 const pages = [
   {eyebrow:'С ДНЁМ РОЖДЕНИЯ, ЛЮБИМАЯ',title:'Тебе сегодня <em>восемнадцать ♡</em>',message:'Сегодня мне особенно хочется быть рядом.\nОбнять тебя, увидеть твою улыбку и сказать, как сильно я тебя люблю. Этот маленький мир я сделал для тебя.',caption:'Пусть сегодня между нами будет чуть меньше километров.',button:'Открыть мой подарок',labels:['твоя улыбка','моя любимая','твой особенный день']},
   {eyebrow:'ЕСЛИ БЫ Я БЫЛ РЯДОМ',title:'Я бы начал <em>с объятий.</em>',message:'С тех самых, в которых не хочется торопиться. А потом сказал бы: «С днём рождения, любимая». Мне хочется держать тебя за руку и видеть, как ты радуешься этому дню.',caption:'Пока я далеко — пусть эти слова обнимут тебя за меня.',button:'А потом?',labels:['быть ближе','держать за руку','обнять крепко']},
@@ -7,13 +7,44 @@ const pages = [
   {eyebrow:'САМОЕ ВАЖНОЕ',title:'Я люблю тебя. <em>Очень.</em>',message:'С твоим восемнадцатилетием, любимая. Желаю тебе смелости идти к мечтам, людей, с которыми тепло, и дней, которые хочется запоминать. Я хочу поддерживать тебя, слушать и делить с тобой и большие события, и обычные вечера.\nТы очень много для меня значишь.',caption:'Есть слова, которые хочется сказать своим голосом.',button:'Послушай меня',labels:['моя нежность','моя радость','моя любовь']},
   {eyebrow:'ДО НАШЕЙ ВСТРЕЧИ',title:'Одно объятие <em>я тебе уже должен.</em>',message:'Когда мы встретимся, я скажу всё это ещё раз. Уже обнимая тебя. А сегодня знай: я думаю о тебе и очень хочу, чтобы ты была счастлива.\nС днём рождения, моя любимая.',caption:'Расстояние есть. И любовь тоже есть.',button:'Обнять тебя ♡',labels:['ты','мы','наше впереди']}
 ];
-pages.forEach((page,i)=>{page.photoFolder=i+1;});
+pages[4].button='Дальше ♡';
+pages[4].caption='Все эти слова — тебе, моя любимая.';
 pages.splice(5,0,{
   eyebrow:'У ТЕБЯ СТОЛЬКО НЕЖНЫХ ИМЁН',
   title:'Как тебе <em>приятнее, лучик?</em>',
   message:'Любимая, солнышко, принцесса… В каждом слове — моя нежность к тебе. А какие из них ты любишь больше? Подвинь ползунки и расскажи мне ♡',
   caption:'Как бы я тебя ни называл — ты всегда моя любимая.',
   button:'И последнее…',labels:['моё солнышко','моя принцесса','мой лучик'],photoFolder:7,quiz:true
+});
+pages.splice(4,0,{
+  title:'Наши фотографии',eyebrow:'',message:'',caption:'Я люблю тебя в любом уголке мира. Даже когда мы далеко друг от друга ♡',button:'→',gallery:true,labels:[]
+});
+// Все 27 снимков используются один раз. Номера соответствуют photo-manifest.json.
+const collections=[
+  [[22,'Самые красивые глазки'],[26,'У себя дома'],[27,'Уже на чешском']],
+  [[1,'Второй раз у меня дома'],[2,'Было классно'],[5,'Вайбовые обнимашки']],
+  [[10,'Наша первая фотосессия'],[11,'Наша совместная красота'],[12,'И снова фотосессия']],
+  [[16,'Прошлый день рождения'],[17,'Тот самый праздник'],[18,'Вместе в твой день'],[19,'Сохраним этот момент']],
+  [[3,'В Астане по делам'],[7,'Гуляли вместе на районе'],[8,'На дрифте с Матвейкой и папой'],[13,'Первая поездка с моими родителями'],[20,'Кайфовали в парке']],
+  [[9,'Катались до красивого заката'],[21,'Расцеловала меня'],[23,'Собирались вкусно кушать']],
+  [[4,'В самолёте'],[14,'Первые вайбовые посиделки'],[6,'Вкусно кушали суши']],
+  [[15,'Просто вместе'],[24,'Перед отправкой в Чехию'],[25,'Гуляли до мамы']]
+];
+collections.forEach((photos,i)=>{
+  pages[i].photos=photos.map(([id,label])=>({src:`assets/photos/memory-${String(id).padStart(2,'0')}.jpg`,label,position:id===15?'center bottom':'center 40%'}));
+  pages[i].labels=photos.map(([,label])=>label);
+});
+pages[2].message='Мне дороги наши фотографии. В них можно вернуться взглядом, когда особенно скучаешь. Эти мгновения хочется беречь и однажды повторить.';
+pages[3].message='Смотрю на фотографии с твоего прошлого праздника, а сегодня начинается новый год твоей жизни. Мне так хочется, чтобы в нём было много поводов улыбаться.';
+pages[3].button='Ещё немного нас';
+pages[pages.length-1].button='Послушай меня ♡';
+pages[pages.length-1].audio=true;
+pages.push({
+  eyebrow:'И ПОСЛЕДНЯЯ МАЛЕНЬКАЯ ПРОСЬБА',
+  title:'А теперь <em>улыбнись, солнышко ♡</em>',
+  message:'А теперь я жду твою улыбку. Хочу, чтобы весь этот день ты провела с улыбкой на лице — самой красивой для меня.\nУлыбнись, любимая. Даже на расстоянии я хочу делать тебя счастливой.',
+  caption:'Пусть сегодня у тебя будет много поводов для счастья.',
+  button:'Я улыбаюсь ♡',labels:[],photos:[],smile:true
 });
 const nicknames=['Любимая','Солнышко','Принцесса','Котик','Киса','Лучик солнца'];
 let nicknameScores={};
@@ -23,9 +54,16 @@ try{
     if(Number.isFinite(saved[name]) && Number.isInteger(saved[name]*2) && saved[name]>=0 && saved[name]<=10) nicknameScores[name]=saved[name];
   });
 }catch{}
+const slideKeys=['intro','hugs','memories','birthday','gallery','love','nicknames','meeting','smile'];
+pages.forEach((page,i)=>{page.key=slideKeys[i];});
 let current = 0;
+try{
+  const savedSlide=sessionStorage.getItem('birthday-current-slide');
+  const savedIndex=pages.findIndex(page=>page.key===savedSlide);
+  if(savedIndex>=0)current=savedIndex;
+}catch{}
 const $ = id => document.getElementById(id);
-const photoPath = (page, slot) => `assets/photos/${pages[page].photoFolder}-${slot + 1}.jpg`;
+const photoPath = (page, slot) => pages[page].photos[slot].src;
 function renderNicknameQuiz(){
   document.querySelector('.nickname-quiz')?.remove();
   $('scene').classList.toggle('quiz-scene',Boolean(pages[current].quiz));
@@ -73,6 +111,7 @@ function renderNicknameQuiz(){
 }
 function render() {
   const page = pages[current];
+  try{sessionStorage.setItem('birthday-current-slide',page.key);}catch{}
   $('eyebrow').textContent = page.eyebrow;
   $('title').innerHTML = page.title;
   $('message').textContent = page.message;
@@ -80,17 +119,26 @@ function render() {
   $('next-label').textContent = page.button;
   $('chapter').textContent = '27 ОКТЯБРЯ — ТВОЙ ДЕНЬ';
   $('back').disabled = current === 0;
+  $('sound').hidden=!page.audio;
+  $('scene').classList.toggle('gallery-scene',Boolean(page.gallery));
+  $('scene').classList.toggle('four-photos',page.photos.length===4);
+  $('scene').classList.toggle('smile-scene',Boolean(page.smile));
+  document.querySelector('main').classList.toggle('gallery-mode',Boolean(page.gallery));
+  $('photos').dataset.count=page.photos.length;
   renderNicknameQuiz();
   $('photos').replaceChildren(...page.labels.map((label, i) => {
-    const figure = document.createElement('button'); figure.type = 'button'; figure.className = 'photo';
-    figure.setAttribute('aria-label', `${label} — прочитать на обороте`);
-    figure.setAttribute('aria-pressed', 'false');
+    const figure = document.createElement(page.gallery?'figure':'button'); if(!page.gallery) figure.type = 'button'; figure.className = 'photo';
+    figure.setAttribute('aria-label', page.gallery?label:`${label} — прочитать на обороте`);
+    if(!page.gallery) figure.setAttribute('aria-pressed', 'false');
     const inner = document.createElement('span'); inner.className = 'photo-inner';
     const front = document.createElement('span'); front.className = 'photo-front';
     const area = document.createElement('div'); area.className = 'photo-area';
     area.innerHTML = '<span class="placeholder-heart">♡</span><span class="placeholder-text">здесь будет наше фото</span>';
     const img = document.createElement('img'); img.alt = label;
+    img.style.objectPosition=page.photos[i].position;
+    img.decoding='async';
     img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); img.src = photoPath(current, i);
+    if(page.gallery){front.append(area);inner.append(front);figure.append(inner);return figure;}
     const caption = document.createElement('span'); caption.className = 'photo-caption'; caption.textContent = label;
     const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = 'переверни ♡';
     const back = document.createElement('span'); back.className = 'photo-back'; back.setAttribute('aria-hidden','true');
@@ -128,15 +176,19 @@ function burst(button, count = 10) {
 }
 $('next').onclick = () => {
   burst($('next'));
-  if(current === 4){$('audio-dialog').showModal();return;}
-  if(current === pages.length-1){$('caption').textContent='Обнимаю крепко. С днём рождения, моя любимая ♡';burst($('next'),24);return;}
+  if(pages[current].audio){$('audio-dialog').showModal();return;}
+  if(current === pages.length-1){$('caption').textContent='Вот она — моя любимая улыбка. С днём рождения, солнышко ♡';burst($('next'),24);return;}
   current++;render();
 };
 $('back').onclick=()=>{if(current>0){current--;render();}};
 document.querySelector('.signature').onclick=e=>{e.preventDefault();current=0;render();};
 $('sound').onclick=()=>$('audio-dialog').showModal();
 $('close-audio').onclick=()=>$('audio-dialog').close();
-$('audio-dialog').addEventListener('close',()=>{$('voice').pause();if(current===4){current++;render();}});
+$('audio-dialog').addEventListener('close',()=>{
+  $('voice').pause();
+  if(pages[current].audio && current<pages.length-1){current++;render();}
+  else if(pages[current].audio){$('caption').textContent='Обнимаю крепко. С днём рождения, солнышко ♡';}
+});
 let audioUrl;
 $('audio-file').onchange = e => {
   const file=e.target.files[0];if(!file)return;
@@ -182,3 +234,147 @@ function startHearts() {
 reducedMotion.addEventListener('change',startHearts);
 startHearts();
 render();
+
+// Укажите локальный музыкальный файл, когда пользователь выберет трек.
+const musicTracks=[
+  {title:'цветы',artist:'тёмный принц',src:''}, // assets/music/flowers.mp3
+  {title:'Париж',artist:'kokoshka, Satyr',src:''}, // assets/music/paris.mp3
+  {title:'Sometimes',artist:'Matteux, Princess Chelsea, Videoclub',src:''}, // assets/music/sometimes.mp3
+  {title:'ты случилась',artist:'мартин',src:''} // assets/music/you-happened.mp3
+];
+let musicIndex=0;
+const backgroundMusic=$('background-music');
+backgroundMusic.volume=.18;
+let musicWanted=musicTracks.some(track=>track.src);
+let voicePlaying=false;
+let musicError=false;
+function updateMusicButton(){
+  const playing=!backgroundMusic.paused;
+  const track=musicTracks[musicIndex];
+  $('music-title').textContent=track.title;
+  $('music-artist').textContent=track.artist;
+  $('music-play').disabled=!track.src;
+  $('music-play').innerHTML=playing?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg>';
+  $('music-play').setAttribute('aria-label',playing?'Поставить музыку на паузу':'Включить музыку');
+  $('music-status').textContent=musicError?'Не удалось загрузить эту запись':!track.src?'Аудиофайлы пока не добавлены':voicePlaying?'Слушаем твоё голосовое ♡':playing?'Тихо играет для тебя ♡':'Музыка на паузе';
+  $('music-toggle').disabled=!track.src;
+  $('music-toggle').setAttribute('aria-pressed',String(playing));
+  if(track.src){
+    $('music-toggle').innerHTML=playing?'♫ <span>музыка</span>':'♫ <span>включить</span>';
+    $('music-toggle').setAttribute('aria-label',playing?'Выключить фоновую музыку':'Включить фоновую музыку');
+    $('music-toggle').title=playing?'Выключить музыку':'Включить музыку';
+  }
+}
+function playBackgroundMusic(){
+  if(!musicTracks[musicIndex].src || !musicWanted || voicePlaying)return;
+  backgroundMusic.play().then(updateMusicButton).catch(()=>{updateMusicButton();});
+}
+function selectMusic(index){
+  musicIndex=(index+musicTracks.length)%musicTracks.length;
+  musicError=false;
+  backgroundMusic.pause();
+  if(musicTracks[musicIndex].src)backgroundMusic.src=musicTracks[musicIndex].src;
+  else{backgroundMusic.removeAttribute('src');backgroundMusic.load();}
+  updateMusicButton();
+  if(musicWanted)playBackgroundMusic();
+  document.querySelectorAll('.music-track').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===musicIndex)));
+}
+function toggleMusic(){
+  if(!musicTracks[musicIndex].src)return;
+  musicWanted=!musicWanted;
+  if(musicWanted)playBackgroundMusic();else backgroundMusic.pause();
+  updateMusicButton();
+}
+$('music-toggle').onclick=toggleMusic;
+$('music-play').onclick=toggleMusic;
+$('music-prev').onclick=()=>selectMusic(musicIndex-1);
+$('music-next').onclick=()=>selectMusic(musicIndex+1);
+$('music-volume').oninput=()=>{backgroundMusic.volume=Number($('music-volume').value)/100;};
+$('music-list-toggle').onclick=()=>{
+  $('music-queue').hidden=!$('music-queue').hidden;
+  $('music-list-toggle').setAttribute('aria-expanded',String(!$('music-queue').hidden));
+};
+musicTracks.forEach((track,i)=>{
+  const button=document.createElement('button');button.className='music-track';
+  const title=document.createElement('strong');title.textContent=track.title;
+  const artist=document.createElement('span');artist.textContent=track.artist;
+  button.append(title,artist);button.onclick=()=>selectMusic(i);$('music-queue').append(button);
+});
+backgroundMusic.addEventListener('ended',()=>selectMusic(musicIndex+1));
+backgroundMusic.addEventListener('error',()=>{musicError=true;updateMusicButton();});
+backgroundMusic.addEventListener('play',updateMusicButton);
+backgroundMusic.addEventListener('pause',updateMusicButton);
+$('voice').addEventListener('play',()=>{voicePlaying=true;backgroundMusic.pause();});
+$('voice').addEventListener('pause',()=>{voicePlaying=false;playBackgroundMusic();});
+$('voice').addEventListener('ended',()=>{voicePlaying=false;playBackgroundMusic();});
+selectMusic(0);
+
+// Заставка показывается при каждом входе и обновлении, слайд сохраняется в этой вкладке.
+for(let i=0;i<18;i++){
+  const heart=document.createElement('span');heart.textContent='♡';
+  const right=i%2===1,duration=16+Math.random()*18;
+  heart.style.cssText=`--desktop-left:${right?77+Math.random()*18:4+Math.random()*17}%;--mobile-left:${right?90+Math.random()*5:Math.random()*6}%;font-size:${18+Math.random()*23}px;--duration:${duration}s;animation-delay:-${Math.random()*duration}s;--drift:${(Math.random()-.5)*40}px`;
+  $('welcome-hearts').append(heart);
+}
+document.body.classList.add('welcome-open');
+const welcomeAssets=pages[current].photos;
+let welcomeLoaded=0;
+let welcomeReady=false;
+function readyWelcome(){
+  if(welcomeReady)return;
+  welcomeReady=true;
+  $('welcome-fill').style.width='100%';
+  $('welcome-status').textContent='Всё готово. Этот момент — твой ♡';
+  $('envelope-label').textContent='Открой своё письмо ♡';
+  $('welcome-start').disabled=false;
+}
+const welcomeTimeout=setTimeout(readyWelcome,5000);
+Promise.all(welcomeAssets.map(photo=>new Promise(resolve=>{
+  const image=new Image();
+  const finish=()=>{welcomeLoaded++;if(!welcomeReady)$('welcome-fill').style.width=`${welcomeLoaded/welcomeAssets.length*100}%`;resolve();};
+  image.onload=finish;image.onerror=finish;image.src=photo.src;
+}))).then(()=>{clearTimeout(welcomeTimeout);readyWelcome();});
+$('welcome-start').onclick=()=>{
+  if(!welcomeReady)return;
+  $('welcome-start').disabled=true;
+  $('welcome-start').classList.add('is-open');
+  $('envelope-label').textContent='С любовью, для тебя…';
+  playBackgroundMusic();
+  setTimeout(openWelcome,reducedMotion.matches?0:1150);
+};
+function openWelcome(){
+  $('site-content').inert=false;
+  $('site-content').removeAttribute('aria-hidden');
+  document.body.classList.remove('welcome-open');
+  $('welcome').inert=true;
+  $('welcome').setAttribute('aria-hidden','true');
+  playBackgroundMusic();
+  $('welcome').classList.add('is-leaving');
+  $('next').focus({preventScroll:true});
+  const duration=reducedMotion.matches?0:900;
+  setTimeout(()=>$('welcome').remove(),duration);
+}
+
+// Небольшой след за мышью: ограничен по частоте и количеству частиц.
+const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
+let lastHeartTime=0;
+let lastHeartPoint=null;
+const cursorHearts=new Set();
+document.addEventListener('pointermove',event=>{
+  if(event.pointerType!=='mouse' || !finePointer.matches || reducedMotion.matches)return;
+  const now=performance.now();
+  if(now-lastHeartTime<65)return;
+  if(lastHeartPoint && Math.hypot(event.clientX-lastHeartPoint.x,event.clientY-lastHeartPoint.y)<7)return;
+  lastHeartTime=now;lastHeartPoint={x:event.clientX,y:event.clientY};
+  if(cursorHearts.size>=28)return;
+  const heart=document.createElement('span');heart.className='cursor-heart';heart.textContent='♡';heart.setAttribute('aria-hidden','true');
+  heart.style.cssText=`left:${event.clientX}px;top:${event.clientY}px;font-size:${randomBetween(12,24)}px;--dx:${randomBetween(-38,38)}px;--dy:${randomBetween(-85,-35)}px;--tilt:${randomBetween(-35,35)}deg;--life:${randomBetween(800,1300)}ms`;
+  document.body.append(heart);cursorHearts.add(heart);
+  const remove=()=>{heart.remove();cursorHearts.delete(heart);};
+  heart.addEventListener('animationend',remove,{once:true});
+  setTimeout(remove,1500);
+},{passive:true});
+document.addEventListener('pointerleave',()=>{lastHeartPoint=null;});
+reducedMotion.addEventListener('change',()=>{
+  if(reducedMotion.matches){cursorHearts.forEach(heart=>heart.remove());cursorHearts.clear();}
+});
