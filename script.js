@@ -258,7 +258,10 @@ function burst(button, count = 10) {
 $('next').onclick = () => {
   burst($('next'));
   if(pages[current].audio){$('audio-dialog').showModal();return;}
-  if(current === pages.length-1){$('caption').textContent='Вот она — моя любимая улыбка. С днём рождения, солнышко ♡';burst($('next'),24);return;}
+  if(current === pages.length-1){
+    window.open('https://t.me/Schni_schna_schnapppi','_blank','noopener,noreferrer');
+    burst($('next'),24);return;
+  }
   current++;render();
 };
 $('back').onclick=()=>{if(current>0){current--;render();}};
