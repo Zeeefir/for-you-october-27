@@ -276,3 +276,26 @@ body.welcome-open{overflow:hidden}
 .music-volume input::-webkit-slider-runnable-track{height:5px;border:0;border-radius:999px;background:#dca6c02b}
 .music-volume input::-webkit-slider-thumb{margin-top:-3.5px}
 .music-volume input::-moz-range-track,.music-volume input::-moz-range-progress{height:5px;border:0;border-radius:999px}
+
+/* Размеры деталей конверта зависят от его корпуса, в том числе на низком экране. */
+.envelope:before{border-radius:6px}
+.envelope-letter{top:10px;bottom:10px;height:auto;left:10px;right:10px;border-radius:3px}
+.envelope-pocket{background:linear-gradient(140deg,#e9abc6,#ce8aaa);clip-path:polygon(0 0,50% 60%,100% 0,100% 100%,0 100%);border-radius:5px}
+.envelope-flap{background:linear-gradient(150deg,#f5c5da,#eeb6cf);clip-path:polygon(0 0,100% 0,50% 60%);border-radius:5px 5px 0 0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.envelope-seal{top:calc(60% - 14px);left:calc(50% - 14px);width:28px;height:28px}
+.welcome-heart i{width:120px;height:120px;border:0;border-radius:0;background:url('assets/heart-ring.svg') center/contain no-repeat}
+@media(max-width:600px){
+  html,body{max-width:100%;overflow-x:clip}
+  header{gap:12px}
+  main{padding-left:20px;padding-right:20px}
+  h1{font-size:clamp(42px,13vw,53px);line-height:1.06}
+  .quiz-scene h1{font-size:clamp(40px,12vw,49px)}
+  .message{max-width:100%}
+  .photos{margin-left:2px;margin-right:2px;gap:10px}
+  .photo-caption{font-size:12px;min-height:40px}
+  .music-player{width:100%;max-width:310px}
+  .welcome{min-height:100svh;align-items:center}
+  .welcome-content{padding-top:8px;padding-bottom:8px}
+  .welcome-overline{line-height:1.7}
+}
+@media(max-width:360px){#welcome-title{font-size:60px}.welcome-note{font-size:11px}.welcome-kicker{font-size:17px}.signature{font-size:23px}}

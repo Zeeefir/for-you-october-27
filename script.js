@@ -164,6 +164,7 @@ function render() {
     button.onclick = () => { current = i; render(); }; return button;
   }));
   $('scene').classList.remove('enter'); void $('scene').offsetWidth; $('scene').classList.add('enter');
+  window.scrollTo(0,0);
 }
 function burst(button, count = 10) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -347,6 +348,7 @@ function openWelcome(){
   $('site-content').inert=false;
   $('site-content').removeAttribute('aria-hidden');
   document.body.classList.remove('welcome-open');
+  window.scrollTo(0,0);
   $('welcome').inert=true;
   $('welcome').setAttribute('aria-hidden','true');
   playBackgroundMusic();
