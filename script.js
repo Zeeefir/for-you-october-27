@@ -57,9 +57,13 @@ pages.splice(7,0,{
   eyebrow:'ЕЩЁ НЕМНОГО ТЕПЛА',
   title:'Друзья тоже хотят <em>тебя поздравить ♡</em>',
   message:'Сегодня тёплые слова для тебя есть не только у меня. Твои друзья тоже хотят сделать этот день особенным.',
-  caption:'Их поздравления совсем скоро появятся здесь ♡',
-  button:'Дальше ♡',photos:[],labels:[],friends:true
+  caption:'Нажми на фото — открой поздравление ♡',
+  button:'Дальше ♡',photos:Array.from({length:7},()=>({src:'',position:'center'})),labels:Array(7).fill('Имя'),friends:true
 });
+const finale=pages.find(page=>page.smile);
+finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
+finale.labels=['Провожали тебя всей семьёй','Вместе в Астане','Твоя улыбка — мой подарок'];
+finale.photoNotes=['Провожали тебя в Чехию вместе с родителями. Берегу наши общие моменты ♡','Ещё одна наша прогулка вдвоём в Астане ♡','Просто захотелось попросить у тебя фотографию. Как же приятно видеть тебя ♡'];
 const nicknames=['Любимая','Солнышко','Принцесса','Котик','Киса','Лучик солнца'];
 let nicknameScores={};
 try{
@@ -140,7 +144,8 @@ function render() {
   $('scene').classList.toggle('four-photos',page.photos.length===4);
   $('scene').classList.toggle('smile-scene',Boolean(page.smile));
   $('scene').classList.toggle('friends-scene',Boolean(page.friends));
-  $('friends-placeholder').hidden=!page.friends;
+  $('friends-placeholder').hidden=!page.friends || page.photos.length>0;
+  $('scene').classList.toggle('smile-photos',Boolean(page.smile && page.photos.length));
   document.querySelector('main').classList.toggle('gallery-mode',Boolean(page.gallery));
   $('photos').dataset.count=page.photos.length;
   renderNicknameQuiz();
@@ -155,7 +160,8 @@ function render() {
     const img = document.createElement('img'); img.alt = label;
     img.style.objectPosition=page.photos[i].position;
     img.decoding='async';
-    img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); img.src = photoPath(current, i);
+    img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); if(photoPath(current,i))img.src = photoPath(current, i);
+    if(page.friends)area.querySelector('.placeholder-text').textContent='здесь будет фото';
     if(page.gallery){front.append(area);inner.append(front);figure.append(inner);return figure;}
     const caption = document.createElement('span'); caption.className = 'photo-caption'; caption.textContent = label;
     const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = 'переверни ♡';
@@ -169,6 +175,7 @@ function render() {
     back.append(heart, heading, note, backHint);
     front.append(area, caption, hint); inner.append(front,back); figure.append(inner);
     figure.onclick = () => {
+      if(page.friends){openFriendCard(figure,i);return;}
       if(figure.classList.contains('is-turning'))return;
       const changeSide=()=>{
         const flipped = figure.classList.toggle('is-flipped');
@@ -190,6 +197,24 @@ function render() {
   }));
   $('scene').classList.remove('enter'); void $('scene').offsetWidth; $('scene').classList.add('enter');
   window.scrollTo(0,0);
+}
+function openFriendCard(source,index){
+  const dialog=document.createElement('dialog');dialog.className='friend-dialog';
+  dialog.setAttribute('aria-label',`Поздравление ${index+1} — Имя`);
+  const close=document.createElement('button');close.className='close';close.textContent='×';close.setAttribute('aria-label','Закрыть поздравление');
+  const card=source.cloneNode(true);card.className='photo friend-expanded';
+  card.querySelector('.photo-back-title').textContent='Имя';
+  card.querySelector('.photo-note').textContent='Здесь будет текст поздравления ♡';
+  const flip=()=>{
+    if(card.classList.contains('is-turning'))return;
+    const change=()=>{const back=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(back));card.querySelector('.photo-front').setAttribute('aria-hidden',String(back));card.querySelector('.photo-back').setAttribute('aria-hidden',String(!back));};
+    if(reducedMotion.matches){change();return;}
+    card.classList.add('is-turning');setTimeout(change,180);setTimeout(()=>card.classList.remove('is-turning'),380);
+  };
+  card.onclick=flip;close.onclick=()=>dialog.close();
+  dialog.onclick=e=>{if(e.target===dialog)dialog.close();};
+  dialog.onclose=()=>{dialog.remove();source.focus({preventScroll:true});};
+  dialog.append(close,card);document.body.append(dialog);dialog.showModal();close.focus();setTimeout(()=>{if(dialog.open)flip();},reducedMotion.matches?0:350);
 }
 function burst(button, count = 10) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
