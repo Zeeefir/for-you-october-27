@@ -66,6 +66,7 @@ pages.find(page=>page.friends).photos[3]={src:'assets/photos/friend-girls.jpg',p
 pages.find(page=>page.friends).photos[0]={src:'assets/photos/friend-den.jpg',position:'right center'};
 pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim.jpg',position:'left center'};
 pages.find(page=>page.friends).photoNotes=['Ксюша с днем рождения желаю тебе всего всего самого наилучшего пусть в жизни будут только победы что бы все мечты сбывались что бы все цели достигались что бы рядом были верные и любящие люди с днем рождение'];
+pages.find(page=>page.friends).photoNotes[1]='чушка поздравляю тебя с твоим 18 летием!! Желаю счастья и здоровья,желаю что бы у вас со стасом был бесконечный брак и деньги на додеп ,я очень рад что познакомился с тобой в так называемом шаге ,желаю тебе всего самого наилучшего ,по больше тебе денег,хороших подружек, еще раз поздравляю с 18 летием Ксения';
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
 finale.labels=['Провожали тебя всей семьёй','Вместе в Астане','Твоя улыбка — мой подарок'];
