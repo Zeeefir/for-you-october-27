@@ -60,6 +60,7 @@ pages.splice(7,0,{
   caption:'Нажми на фото — открой поздравление ♡',
   button:'Дальше ♡',photos:Array.from({length:7},()=>({src:'',position:'center'})),labels:['Дэн','Артур','Оксана','Аружан','Анель','Саша','Максим'],friends:true
 });
+pages.find(page=>page.friends).photos[1]={src:'assets/photos/friend-artur.jpg',position:'center'};
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
 finale.labels=['Провожали тебя всей семьёй','Вместе в Астане','Твоя улыбка — мой подарок'];

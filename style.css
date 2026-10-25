@@ -403,3 +403,4 @@ html{scrollbar-gutter:stable}
 @keyframes flap-unfold{0%{clip-path:polygon(0 0,100% 0,50% 60%);transform:none}50%{clip-path:polygon(0 0,100% 0,50% 0);transform:none}100%{clip-path:polygon(0 0,100% 0,50% 60%);transform:scaleY(-1);z-index:1}}
 @keyframes letter-unfold{0%{transform:translateY(0)}100%{transform:translateY(-54px)}}
 .envelope-button.is-open .envelope-seal{opacity:0}
+.friend-dialog .photo img{object-fit:contain}.friend-dialog .photo-area{background:#140f14}
