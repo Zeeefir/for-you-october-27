@@ -112,6 +112,8 @@ function renderNicknameQuiz(){
 function render() {
   const page = pages[current];
   try{sessionStorage.setItem('birthday-current-slide',page.key);}catch{}
+  $('music-queue').hidden=true;
+  $('music-list-toggle').setAttribute('aria-expanded','false');
   $('eyebrow').textContent = page.eyebrow;
   $('title').innerHTML = page.title;
   $('message').textContent = page.message;
@@ -302,9 +304,10 @@ musicTracks.forEach((track,i)=>{
   const button=document.createElement('button');button.className='music-track';
   const title=document.createElement('strong');title.textContent=track.title;
   const artist=document.createElement('span');artist.textContent=track.artist;
-  button.append(title,artist);button.onclick=()=>selectMusic(i);$('music-queue').append(button);
+  button.append(title,artist);button.onclick=()=>{selectMusic(i);$('music-queue').hidden=true;$('music-list-toggle').setAttribute('aria-expanded','false');};$('music-queue').append(button);
 });
 backgroundMusic.addEventListener('ended',()=>selectMusic(musicIndex+1));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('music-queue').hidden=true;$('music-list-toggle').setAttribute('aria-expanded','false');}});
 backgroundMusic.addEventListener('error',()=>{musicError=true;updateMusicButton();});
 backgroundMusic.addEventListener('play',updateMusicButton);
 backgroundMusic.addEventListener('pause',updateMusicButton);
