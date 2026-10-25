@@ -58,7 +58,7 @@ pages.splice(7,0,{
   title:'Друзья тоже хотят <em>тебя поздравить ♡</em>',
   message:'Сегодня тёплые слова для тебя есть не только у меня. Твои друзья тоже хотят сделать этот день особенным.',
   caption:'Нажми на фото — открой поздравление ♡',
-  button:'Дальше ♡',photos:Array.from({length:7},()=>({src:'',position:'center'})),labels:['Дэн','Артур','Оксана','Аружан','Анель','Саша','Максим'],friends:true
+  button:'Дальше ♡',photos:Array.from({length:5},()=>({src:'',position:'center'})),labels:['Дэн','Артур','Оксана','Аружан · Анель · Саша','Максим'],friends:true
 });
 pages.find(page=>page.friends).photos[1]={src:'assets/photos/friend-artur.jpg',position:'center'};
 const finale=pages.find(page=>page.smile);

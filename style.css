@@ -417,3 +417,6 @@ html{scrollbar-gutter:stable}
 @media(hover:hover){.friends-scene .photo:nth-child(n):hover{transform:translateY(-12px) rotate(0deg) scale(1.035);z-index:5}}
 .friends-scene .photo:nth-child(n):focus-visible{transform:translateY(-12px) rotate(0deg);z-index:5}
 @media(prefers-reduced-motion:reduce){.friends-scene .photo:nth-child(n){transition:none}}
+
+.friends-scene .photo:nth-child(n){flex-basis:calc((100% - 76px)/5)}
+@media(max-width:600px){.friends-scene .photo:nth-child(n){flex-basis:155px;min-width:155px}}
