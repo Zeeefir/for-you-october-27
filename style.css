@@ -411,3 +411,14 @@ html{scrollbar-gutter:stable}
  .smile-photos .photos[data-count="5"] .photo:nth-child(4){top:205px;width:140px}
  .smile-photos .photos[data-count="5"] .photo:nth-child(5){top:410px;width:140px}
 }
+/* Более крупные фотографии вокруг финального поздравления. */
+@media(min-width:1000px){
+ #scene.smile-photos:has(.photos[data-count="5"]){min-height:790px;padding-left:240px;padding-right:240px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(1){width:190px;top:40px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(3){width:190px;top:390px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(2){width:180px;top:0;right:0}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(4){width:180px;top:255px;right:30px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(5){width:180px;top:505px;right:0}
+ .smile-photos .photos[data-count="5"] .photo-caption{font-size:17px;line-height:1.15;padding-top:9px}
+}
+@media(hover:hover) and (min-width:1000px){.smile-photos .photos[data-count="5"] .photo:nth-child(n):hover{transform:translateY(-8px) rotate(0deg) scale(1.2);z-index:8}}
