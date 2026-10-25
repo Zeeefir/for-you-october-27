@@ -254,6 +254,7 @@ function updateMusicButton(){
   $('music-title').textContent=track.title;
   $('music-artist').textContent=track.artist;
   $('music-play').disabled=!track.src;
+  $('music-play').classList.toggle('is-playing',playing);
   $('music-play').innerHTML=playing?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg>';
   $('music-play').setAttribute('aria-label',playing?'Поставить музыку на паузу':'Включить музыку');
   $('music-status').textContent=musicError?'Не удалось загрузить эту запись':!track.src?'Аудиофайлы пока не добавлены':voicePlaying?'Слушаем твоё голосовое ♡':playing?'Тихо играет для тебя ♡':'Музыка на паузе';
