@@ -219,6 +219,7 @@ function render() {
 function openFriendCard(source,index){
   const page=pages[current], name=page.labels[index];
   const dialog=document.createElement('dialog');dialog.className='friend-dialog friend-letter';
+  dialog.classList.toggle('friend-group-letter',index===3);
   dialog.setAttribute('aria-label',`Поздравление — ${name}`);
   const close=document.createElement('button');close.className='close';close.textContent='×';close.setAttribute('aria-label','Закрыть поздравление');
   const picture=document.createElement('div');picture.className='friend-picture';

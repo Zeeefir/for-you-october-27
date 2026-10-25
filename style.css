@@ -443,3 +443,6 @@ html{scrollbar-gutter:stable}
 .friends-scene .photos::-webkit-scrollbar{display:none;width:0;height:0}
 /* Полный кадр Максима: рамка не отрезает человека слева. */
 .friends-scene .photo-area:has(img[src*="friend-maxim"]){aspect-ratio:1334/1179}
+.friend-letter{scrollbar-width:thin;scrollbar-color:#ae6c8d55 transparent}
+.friend-letter::-webkit-scrollbar{width:4px}.friend-letter::-webkit-scrollbar-thumb{background:#ae6c8d55;border-radius:20px}.friend-letter::-webkit-scrollbar-button{display:none}
+@media(min-width:601px){.friend-group-letter[open]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.friend-group-letter .friend-letter-copy h2{font-size:36px;margin:15px 0 20px}.friend-group-letter .friend-letter-copy p{font-size:15px;line-height:1.7}}
