@@ -152,7 +152,7 @@ function render() {
   renderNicknameQuiz();
   $('photos').replaceChildren(...page.labels.map((label, i) => {
     const figure = document.createElement(page.gallery?'figure':'button'); if(!page.gallery) figure.type = 'button'; figure.className = 'photo';
-    figure.setAttribute('aria-label', page.gallery?label:`${label} — прочитать на обороте`);
+    figure.setAttribute('aria-label', page.gallery?label:page.friends?`${label} — открыть поздравление`:`${label} — прочитать на обороте`);
     if(!page.gallery) figure.setAttribute('aria-pressed', 'false');
     const inner = document.createElement('span'); inner.className = 'photo-inner';
     const front = document.createElement('span'); front.className = 'photo-front';
@@ -165,7 +165,7 @@ function render() {
     if(page.friends)area.querySelector('.placeholder-text').textContent='здесь будет фото';
     if(page.gallery){front.append(area);inner.append(front);figure.append(inner);return figure;}
     const caption = document.createElement('span'); caption.className = 'photo-caption'; caption.textContent = label;
-    const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = 'переверни ♡';
+    const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = page.friends?'открой поздравление ♡':'переверни ♡';
     const back = document.createElement('span'); back.className = 'photo-back'; back.setAttribute('aria-hidden','true');
     const heart = document.createElement('span'); heart.className = 'photo-back-heart'; heart.textContent = '♡';
     const heading = document.createElement('span'); heading.className = 'photo-back-title'; heading.textContent = 'Моё воспоминание';
@@ -200,22 +200,22 @@ function render() {
   window.scrollTo(0,0);
 }
 function openFriendCard(source,index){
-  const dialog=document.createElement('dialog');dialog.className='friend-dialog';
-  dialog.setAttribute('aria-label',`Поздравление — ${pages[current].labels[index]}`);
+  const page=pages[current], name=page.labels[index];
+  const dialog=document.createElement('dialog');dialog.className='friend-dialog friend-letter';
+  dialog.setAttribute('aria-label',`Поздравление — ${name}`);
   const close=document.createElement('button');close.className='close';close.textContent='×';close.setAttribute('aria-label','Закрыть поздравление');
-  const card=source.cloneNode(true);card.className='photo friend-expanded';
-  card.querySelector('.photo-back-title').textContent=pages[current].labels[index];
-  card.querySelector('.photo-note').textContent='Здесь будет текст поздравления ♡';
-  const flip=()=>{
-    if(card.classList.contains('is-turning'))return;
-    const change=()=>{const back=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(back));card.querySelector('.photo-front').setAttribute('aria-hidden',String(back));card.querySelector('.photo-back').setAttribute('aria-hidden',String(!back));};
-    if(reducedMotion.matches){change();return;}
-    card.classList.add('is-turning');setTimeout(change,180);setTimeout(()=>card.classList.remove('is-turning'),380);
-  };
-  card.onclick=flip;close.onclick=()=>dialog.close();
-  dialog.onclick=e=>{if(e.target===dialog)dialog.close();};
+  const picture=document.createElement('div');picture.className='friend-picture';
+  const image=source.querySelector('img');
+  if(image){const copy=image.cloneNode();copy.alt=name;picture.append(copy);}
+  else{const placeholder=document.createElement('span');placeholder.textContent='♡';picture.append(placeholder);const label=document.createElement('small');label.textContent='Здесь будет фотография';picture.append(label);}
+  const letter=document.createElement('section');letter.className='friend-letter-copy';
+  const overline=document.createElement('span');overline.className='friend-from';overline.textContent='С ТЕПЛОМ, ДЛЯ ТЕБЯ';
+  const title=document.createElement('h2');title.textContent=name;
+  const text=document.createElement('p');text.textContent=page.photoNotes?.[index] || 'Здесь будет текст поздравления ♡';
+  letter.append(overline,title,text);
+  close.onclick=()=>dialog.close();dialog.onclick=e=>{if(e.target===dialog)dialog.close();};
   dialog.onclose=()=>{dialog.remove();source.focus({preventScroll:true});};
-  dialog.append(close,card);document.body.append(dialog);dialog.showModal();close.focus();setTimeout(()=>{if(dialog.open)flip();},reducedMotion.matches?0:350);
+  dialog.append(close,picture,letter);document.body.append(dialog);dialog.showModal();close.focus();
 }
 function burst(button, count = 10) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
