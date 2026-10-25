@@ -215,7 +215,13 @@ function openFriendCard(source,index){
   letter.append(overline,title,text);
   close.onclick=()=>dialog.close();dialog.onclick=e=>{if(e.target===dialog)dialog.close();};
   dialog.onclose=()=>{dialog.remove();source.focus({preventScroll:true});};
-  dialog.append(close,picture,letter);document.body.append(dialog);dialog.showModal();close.focus();
+  const decoration=document.createElement('div');decoration.className='letter-hearts';decoration.setAttribute('aria-hidden','true');
+  for(let i=0;i<15;i++){
+    const heart=document.createElement('span');heart.textContent='♡';
+    heart.style.cssText=`left:${4+Math.random()*91}%;top:${4+Math.random()*88}%;--size:${18+Math.random()*35}px;--tilt:${-23+Math.random()*46}deg;--duration:${7+Math.random()*7}s;--delay:${-Math.random()*14}s`;
+    decoration.append(heart);
+  }
+  dialog.append(decoration,close,picture,letter);document.body.append(dialog);dialog.showModal();close.focus();
 }
 function burst(button, count = 10) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;

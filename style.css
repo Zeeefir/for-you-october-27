@@ -425,3 +425,12 @@ html{scrollbar-gutter:stable}
 .friend-picture img{display:block;width:100%;max-height:65svh;object-fit:contain}.friend-picture>span{font:70px Georgia;color:var(--pink)}.friend-picture small{font-size:11px;color:#ba8da3}
 .friend-letter-copy{text-align:left;padding:15px 10px}.friend-from{font-size:9px;letter-spacing:2px;color:#bf91a8}.friend-letter-copy h2{font-size:48px;line-height:1.1;color:var(--pink);margin:19px 0 23px}.friend-letter-copy p{font-size:17px;line-height:1.9;white-space:pre-line;color:#e3ced9;margin:0;overflow-wrap:anywhere}.friend-letter .close{width:36px;height:36px;display:grid;place-items:center;line-height:1;border-radius:50%;right:12px;top:10px}.friend-letter .close:focus-visible{outline:1px solid #f1acc670;outline-offset:2px}
 @media(max-width:600px){.friend-letter[open]{grid-template-columns:1fr;gap:22px;padding:50px 22px 28px;max-height:90svh}.friend-picture{min-height:180px;width:90%;margin:0 auto}.friend-picture img{max-height:35svh}.friend-letter-copy{padding:5px 0}.friend-letter-copy h2{font-size:36px;margin:14px 0 18px}.friend-letter-copy p{font-size:15px}}
+/* Нежный фон внутри открытки с поздравлением. */
+.friend-letter[open]{isolation:isolate;background:radial-gradient(ellipse at 10% 5%,#70354b35,transparent 48%),radial-gradient(ellipse at 95% 95%,#6f345128,transparent 48%),linear-gradient(135deg,#24151f,#120d12)}
+.letter-hearts{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1;border-radius:inherit}
+.letter-hearts span{position:absolute;font-family:Georgia,serif;font-size:var(--size);line-height:1;color:#efabc7;opacity:.11;transform:rotate(var(--tilt));animation:letter-heart-drift var(--duration) var(--delay) ease-in-out infinite alternate;user-select:none}
+.friend-letter .friend-picture,.friend-letter .friend-letter-copy{position:relative;z-index:1}
+.friend-letter .close{z-index:3}
+@keyframes letter-heart-drift{from{transform:translateY(10px) rotate(var(--tilt));opacity:.07}to{transform:translateY(-18px) rotate(calc(var(--tilt) + 12deg));opacity:.17}}
+@media(max-width:600px){.letter-hearts span{font-size:calc(var(--size)*.75);opacity:.1}}
+@media(prefers-reduced-motion:reduce){.letter-hearts span{animation:none;opacity:.11}}
