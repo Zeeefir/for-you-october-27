@@ -379,3 +379,18 @@ html{scrollbar-gutter:stable}
 .friend-letter{scrollbar-width:thin;scrollbar-color:#ae6c8d55 transparent}
 .friend-letter::-webkit-scrollbar{width:4px}.friend-letter::-webkit-scrollbar-thumb{background:#ae6c8d55;border-radius:20px}.friend-letter::-webkit-scrollbar-button{display:none}
 @media(min-width:601px){.friend-group-letter[open]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.friend-group-letter .friend-letter-copy h2{font-size:36px;margin:15px 0 20px}.friend-group-letter .friend-letter-copy p{font-size:15px;line-height:1.7}}
+@media(min-width:1000px){
+ #scene.smile-photos:has(.photos[data-count="5"]){min-height:1100px;padding-bottom:380px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(1){left:0;right:auto;top:90px;width:190px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(2){right:0;left:auto;top:70px;width:190px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(3){left:20px;right:auto;top:440px;width:180px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(4){right:15px;left:auto;top:430px;width:180px;transform:rotate(6deg)}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(5){left:calc(50% - 100px);right:auto;top:780px;width:200px;transform:rotate(-4deg)}
+}
+@media(max-width:999px){
+ #scene.smile-photos .photos[data-count="5"]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:620px;width:100%;padding:14px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(n){position:relative;inset:auto;width:100%}
+ .smile-photos .photos[data-count="5"] .photo:last-child{grid-column:1/-1;width:calc(50% - 12px);justify-self:center}
+}
+/* В скриншоте показываем сам снимок, скрывая панели галереи за рамкой. */
+.smile-photos .photo-area:has(img[src*="memory-32"]){aspect-ratio:3/4}
