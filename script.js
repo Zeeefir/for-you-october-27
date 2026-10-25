@@ -64,7 +64,7 @@ pages.find(page=>page.friends).photos[1]={src:'assets/photos/friend-artur.jpg',p
 pages.find(page=>page.friends).photos[2]={src:'assets/photos/friend-oksana.jpg',position:'center 40%'};
 pages.find(page=>page.friends).photos[3]={src:'assets/photos/friend-girls.jpg',position:'center 60%'};
 pages.find(page=>page.friends).photos[0]={src:'assets/photos/friend-den.jpg',position:'right center'};
-pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim.jpg',position:'left center'};
+pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim.jpg',position:'right center'};
 pages.find(page=>page.friends).photoNotes=['Ксюша с днем рождения желаю тебе всего всего самого наилучшего пусть в жизни будут только победы что бы все мечты сбывались что бы все цели достигались что бы рядом были верные и любящие люди с днем рождение'];
 pages.find(page=>page.friends).photoNotes[1]='чушка поздравляю тебя с твоим 18 летием!! Желаю счастья и здоровья,желаю что бы у вас со стасом был бесконечный брак и деньги на додеп ,я очень рад что познакомился с тобой в так называемом шаге ,желаю тебе всего самого наилучшего ,по больше тебе денег,хороших подружек, еще раз поздравляю с 18 летием Ксения';
 pages.find(page=>page.friends).photoNotes[2]=`Холодно холодно но ничто 
@@ -453,5 +453,6 @@ document.addEventListener('pointerleave',()=>{lastHeartPoint=null;});
 reducedMotion.addEventListener('change',()=>{
   if(reducedMotion.matches){cursorHearts.forEach(heart=>heart.remove());cursorHearts.clear();}
 });
+
 
 
