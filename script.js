@@ -65,6 +65,7 @@ pages.find(page=>page.friends).photos[2]={src:'assets/photos/friend-oksana.jpg',
 pages.find(page=>page.friends).photos[3]={src:'assets/photos/friend-girls.jpg',position:'center 60%'};
 pages.find(page=>page.friends).photos[0]={src:'assets/photos/friend-den.jpg',position:'right center'};
 pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim.jpg',position:'left center'};
+pages.find(page=>page.friends).photoNotes=['Ксюша с днем рождения желаю тебе всего всего самого наилучшего пусть в жизни будут только победы что бы все мечты сбывались что бы все цели достигались что бы рядом были верные и любящие люди с днем рождение'];
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
 finale.labels=['Провожали тебя всей семьёй','Вместе в Астане','Твоя улыбка — мой подарок'];
