@@ -422,3 +422,4 @@ html{scrollbar-gutter:stable}
  .smile-photos .photos[data-count="5"] .photo-caption{font-size:17px;line-height:1.15;padding-top:9px}
 }
 @media(hover:hover) and (min-width:1000px){.smile-photos .photos[data-count="5"] .photo:nth-child(n):hover{transform:translateY(-8px) rotate(0deg) scale(1.2);z-index:8}}
+.photo-area img[src*="final-call"]{transform:scale(1.25);transform-origin:45% top}
