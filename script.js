@@ -31,7 +31,7 @@ const collections=[
   [[15,'Просто вместе'],[24,'Перед отправкой в Чехию'],[25,'Гуляли до мамы']]
 ];
 collections.forEach((photos,i)=>{
-  pages[i].photos=photos.map(([id,label])=>({src:`assets/photos/memory-${String(id).padStart(2,'0')}.jpg`,label,position:id===15?'center bottom':'center 40%'}));
+  pages[i].photos=photos.map(([id,label])=>({src:`assets/photos/memory-${String(id).padStart(2,'0')}.jpg`,label,position:id===15?'center bottom':id===25?'15% center':'center 40%'}));
   pages[i].labels=photos.map(([,label])=>label);
 });
 pages[2].message='Мне дороги наши фотографии. В них можно вернуться взглядом, когда особенно скучаешь. Эти мгновения хочется беречь и однажды повторить.';
