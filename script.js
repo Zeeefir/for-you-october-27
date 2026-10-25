@@ -149,7 +149,7 @@ function render() {
     const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = 'переверни ♡';
     const back = document.createElement('span'); back.className = 'photo-back'; back.setAttribute('aria-hidden','true');
     const heart = document.createElement('span'); heart.className = 'photo-back-heart'; heart.textContent = '♡';
-    const heading = document.createElement('span'); heading.className = 'photo-back-title'; heading.textContent = 'Почему я люблю это фото';
+    const heading = document.createElement('span'); heading.className = 'photo-back-title'; heading.textContent = 'Моё воспоминание';
     const note = document.createElement('span'); note.className = 'photo-note';
     // Добавьте photoNotes: ['Текст для первого фото', 'Для второго', 'Для третьего'] в нужную главу.
     note.textContent = page.photoNotes?.[i] || 'Здесь будет моя маленькая история о том, почему этот снимок мне так дорог.';
