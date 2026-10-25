@@ -394,3 +394,20 @@ html{scrollbar-gutter:stable}
 }
 /* В скриншоте показываем сам снимок, скрывая панели галереи за рамкой. */
 .smile-photos .photo-area:has(img[src*="memory-32"]){aspect-ratio:3/4}
+/* Все пять фотографий окружают финальное письмо. */
+@media(min-width:1000px){
+ #scene.smile-photos:has(.photos[data-count="5"]){min-height:800px;padding:65px 245px 55px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(1){left:0;right:auto;top:65px;width:180px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(2){right:0;left:auto;top:10px;width:160px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(3){left:20px;right:auto;top:410px;width:175px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(4){right:15px;left:auto;top:275px;width:160px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(5){right:0;left:auto;top:535px;width:160px;transform:rotate(-6deg)}
+}
+@media(min-width:1000px){
+ #scene.smile-photos:has(.photos[data-count="5"]){min-height:680px;padding:45px 220px 45px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(1){top:35px;width:165px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(2){top:0;width:140px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(3){top:350px;width:165px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(4){top:205px;width:140px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(5){top:410px;width:140px}
+}
