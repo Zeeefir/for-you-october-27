@@ -148,8 +148,6 @@ function renderNicknameQuiz(){
 function render() {
   const page = pages[current];
   try{sessionStorage.setItem('birthday-current-slide',page.key);}catch{}
-  $('music-queue').hidden=true;
-  $('music-list-toggle').setAttribute('aria-expanded','false');
   $('eyebrow').textContent = page.eyebrow;
   $('title').innerHTML = page.title;
   $('message').textContent = page.message;
@@ -313,82 +311,6 @@ reducedMotion.addEventListener('change',startHearts);
 startHearts();
 render();
 
-// Укажите локальный музыкальный файл, когда пользователь выберет трек.
-const musicTracks=[
-  {title:'цветы',artist:'тёмный принц',src:''}, // assets/music/flowers.mp3
-  {title:'Париж',artist:'kokoshka, Satyr',src:''}, // assets/music/paris.mp3
-  {title:'Sometimes',artist:'Mattyeux, Princess Chelsea, Videoclub',src:''}, // assets/music/sometimes.mp3
-  {title:'ты случилась',artist:'мартин',src:''} // assets/music/you-happened.mp3
-];
-let musicIndex=0;
-const backgroundMusic=$('background-music');
-backgroundMusic.volume=.18;
-let musicWanted=musicTracks.some(track=>track.src);
-let voicePlaying=false;
-let musicError=false;
-function updateMusicButton(){
-  const playing=!backgroundMusic.paused;
-  const track=musicTracks[musicIndex];
-  $('music-title').textContent=track.title;
-  $('music-artist').textContent=track.artist;
-  $('music-play').disabled=!track.src;
-  $('music-play').classList.toggle('is-playing',playing);
-  $('music-play').innerHTML=playing?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg>';
-  $('music-play').setAttribute('aria-label',playing?'Поставить музыку на паузу':'Включить музыку');
-  $('music-status').textContent=musicError?'Не удалось загрузить эту запись':!track.src?'Аудиофайлы пока не добавлены':voicePlaying?'Слушаем твоё голосовое ♡':playing?'Тихо играет для тебя ♡':'Музыка на паузе';
-  $('music-toggle').disabled=!track.src;
-  $('music-toggle').setAttribute('aria-pressed',String(playing));
-  if(track.src){
-    $('music-toggle').innerHTML=playing?'♫ <span>музыка</span>':'♫ <span>включить</span>';
-    $('music-toggle').setAttribute('aria-label',playing?'Выключить фоновую музыку':'Включить фоновую музыку');
-    $('music-toggle').title=playing?'Выключить музыку':'Включить музыку';
-  }
-}
-function playBackgroundMusic(){
-  if(!musicTracks[musicIndex].src || !musicWanted || voicePlaying)return;
-  backgroundMusic.play().then(updateMusicButton).catch(()=>{updateMusicButton();});
-}
-function selectMusic(index){
-  musicIndex=(index+musicTracks.length)%musicTracks.length;
-  musicError=false;
-  backgroundMusic.pause();
-  if(musicTracks[musicIndex].src)backgroundMusic.src=musicTracks[musicIndex].src;
-  else{backgroundMusic.removeAttribute('src');backgroundMusic.load();}
-  updateMusicButton();
-  if(musicWanted)playBackgroundMusic();
-  document.querySelectorAll('.music-track').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===musicIndex)));
-}
-function toggleMusic(){
-  if(!musicTracks[musicIndex].src)return;
-  musicWanted=!musicWanted;
-  if(musicWanted)playBackgroundMusic();else backgroundMusic.pause();
-  updateMusicButton();
-}
-$('music-toggle').onclick=toggleMusic;
-$('music-play').onclick=toggleMusic;
-$('music-prev').onclick=()=>selectMusic(musicIndex-1);
-$('music-next').onclick=()=>selectMusic(musicIndex+1);
-$('music-volume').oninput=()=>{backgroundMusic.volume=Number($('music-volume').value)/100;};
-$('music-list-toggle').onclick=()=>{
-  $('music-queue').hidden=!$('music-queue').hidden;
-  $('music-list-toggle').setAttribute('aria-expanded',String(!$('music-queue').hidden));
-};
-musicTracks.forEach((track,i)=>{
-  const button=document.createElement('button');button.className='music-track';
-  const title=document.createElement('strong');title.textContent=track.title;
-  const artist=document.createElement('span');artist.textContent=track.artist;
-  button.append(title,artist);button.onclick=()=>{selectMusic(i);$('music-queue').hidden=true;$('music-list-toggle').setAttribute('aria-expanded','false');};$('music-queue').append(button);
-});
-backgroundMusic.addEventListener('ended',()=>selectMusic(musicIndex+1));
-document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('music-queue').hidden=true;$('music-list-toggle').setAttribute('aria-expanded','false');}});
-backgroundMusic.addEventListener('error',()=>{musicError=true;updateMusicButton();});
-backgroundMusic.addEventListener('play',updateMusicButton);
-backgroundMusic.addEventListener('pause',updateMusicButton);
-$('voice').addEventListener('play',()=>{voicePlaying=true;backgroundMusic.pause();});
-$('voice').addEventListener('pause',()=>{voicePlaying=false;playBackgroundMusic();});
-$('voice').addEventListener('ended',()=>{voicePlaying=false;playBackgroundMusic();});
-selectMusic(0);
-
 // Заставка показывается при каждом входе и обновлении, слайд сохраняется в этой вкладке.
 for(let i=0;i<18;i++){
   const heart=document.createElement('span');heart.textContent='♡';
@@ -419,7 +341,6 @@ $('welcome-start').onclick=()=>{
   $('welcome-start').disabled=true;
   $('welcome-start').classList.add('is-open');
   $('envelope-label').textContent='С любовью, для тебя…';
-  playBackgroundMusic();
   setTimeout(openWelcome,reducedMotion.matches?0:1500);
 };
 function openWelcome(){
@@ -429,7 +350,6 @@ function openWelcome(){
   window.scrollTo(0,0);
   $('welcome').inert=true;
   $('welcome').setAttribute('aria-hidden','true');
-  playBackgroundMusic();
   $('welcome').classList.add('is-leaving');
   $('next').focus({preventScroll:true});
   const duration=reducedMotion.matches?0:900;

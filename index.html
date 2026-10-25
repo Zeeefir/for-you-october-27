@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#090809">
   <title>Тебе, с любовью ♡</title>
-  <link rel="stylesheet" href="style.css?v=girls-greetings-64">
-  <script src="script.js?v=girls-greetings-64" defer></script>
+  <link rel="stylesheet" href="style.css?v=no-music-65">
+  <script src="script.js?v=no-music-65" defer></script>
 </head>
 <body>
   <div id="welcome" class="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
@@ -25,7 +25,7 @@
   </div>
   <div id="site-content" inert aria-hidden="true">
   <div id="hearts" aria-hidden="true"></div>
-  <header><a class="signature" href="#" aria-label="В начало">для тебя<span>♡</span></a><span class="header-note">расстояние не меняет главного</span><div class="audio-controls"><button id="music-toggle" class="sound music-toggle" disabled aria-label="Фоновая музыка — трек пока не добавлен" title="Трек добавим чуть позже">♫ <span>музыка</span></button><button id="sound" class="sound" aria-label="Открыть голосовое поздравление">♫ <span>мой голос</span></button></div></header>
+  <header><a class="signature" href="#" aria-label="В начало">для тебя<span>♡</span></a><span class="header-note">расстояние не меняет главного</span><div class="audio-controls"><button id="sound" class="sound" aria-label="Открыть голосовое поздравление">♫ <span>мой голос</span></button></div></header>
   <main>
     <div class="chapter"><span class="line"></span><span id="chapter">27 ОКТЯБРЯ — ТВОЙ ДЕНЬ</span><span class="line"></span></div>
     <section id="scene" aria-labelledby="title">
@@ -34,17 +34,10 @@
       <div class="bottom"><p id="caption" class="caption"></p><div class="actions"><button id="back" class="back" aria-label="Предыдущая страница"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="next" class="primary"><span id="next-label"></span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></span></button></div></div>
     </section>
     <nav id="progress" aria-label="Страницы поздравления"></nav>
-  <aside id="music-player" class="music-player" aria-label="Фоновая музыка">
-    <div class="music-top"><span class="music-art" aria-hidden="true">♡</span><div class="music-info"><strong id="music-title">цветы</strong><span id="music-artist">тёмный принц</span></div><button id="music-list-toggle" class="music-icon" aria-label="Список песен" aria-expanded="false" aria-controls="music-queue">☷</button></div>
-    <div id="music-queue" class="music-queue" hidden></div>
-    <div class="music-controls"><button id="music-prev" class="music-icon" aria-label="Предыдущая песня"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7Z"/></svg></button><button id="music-play" class="music-play" aria-label="Включить музыку" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg></button><button id="music-next" class="music-icon" aria-label="Следующая песня"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7Z"/></svg></button><label class="music-volume"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9ZM17 8q5 4 0 8"/></svg><input id="music-volume" aria-label="Громкость фоновой музыки" type="range" min="0" max="100" value="18"></label></div>
-    <p id="music-status" class="music-status" role="status">Аудиофайлы пока не добавлены</p>
-  </aside>
     <footer><span>между нами километры.</span><span>но это всё — тебе <b>♡</b></span></footer>
   </main>
   <dialog id="audio-dialog"><button id="close-audio" class="close" aria-label="Закрыть">×</button><span class="eyebrow">ЧУТЬ БЛИЖЕ, ЧЕМ КАЖЕТСЯ</span><h2>Услышь меня <em>♡</em></h2><p id="audio-note">Здесь будет моё голосовое поздравление.</p><audio id="voice" controls preload="none" hidden></audio><label class="upload">Выбрать запись для предпросмотра<input id="audio-file" type="file" accept="audio/*"></label><small>Выбранная запись звучит только в этом браузере. Для подарка добавим аудиофайл в папку сайта.</small></dialog>
   </div>
-  <audio id="background-music" preload="none" aria-hidden="true"></audio>
 </body>
 </html>
 
