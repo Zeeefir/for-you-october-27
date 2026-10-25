@@ -61,6 +61,7 @@ pages.splice(7,0,{
   button:'Дальше ♡',photos:Array.from({length:5},()=>({src:'',position:'center'})),labels:['Дэн','Артур','Оксана','Аружан · Анель · Саша','Максим'],friends:true
 });
 pages.find(page=>page.friends).photos[1]={src:'assets/photos/friend-artur.jpg',position:'center'};
+pages.find(page=>page.friends).photos[2]={src:'assets/photos/friend-oksana.jpg',position:'center 40%'};
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:'center 40%'}));
 finale.labels=['Провожали тебя всей семьёй','Вместе в Астане','Твоя улыбка — мой подарок'];
