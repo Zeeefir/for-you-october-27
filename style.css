@@ -425,3 +425,16 @@ html{scrollbar-gutter:stable}
 .photo-area img[src*="final-call"]{transform:scale(1.25);transform-origin:45% top}
 /* Центральная подпись не зависит от ширины логотипа и кнопок. */
 @media(min-width:601px){header{position:relative}.header-note{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;text-align:center;pointer-events:none}}
+/* Большой свободный альбом: снимки сохраняют свои пропорции. */
+#scene.gallery-scene{padding-left:0;padding-right:0}
+.gallery-scene .photos{display:block;columns:3;column-gap:36px;height:auto;width:100%;margin:30px 0 35px;padding:18px 20px;overflow:visible}
+.gallery-scene .photo:nth-child(n){position:relative;inset:auto;width:100%;display:inline-block;vertical-align:top;break-inside:avoid;margin:0 0 36px;min-width:0;grid-column:auto;transform:rotate(-3deg);--photo-ratio:4/3}
+.gallery-scene .photo:nth-child(3n+2){transform:rotate(4deg)}
+.gallery-scene .photo:nth-child(3n){transform:rotate(-5deg)}
+.gallery-scene .photo:nth-child(-n+2){--photo-ratio:3/4}
+.gallery-scene .photo:nth-child(n) .photo-area{aspect-ratio:var(--photo-ratio)}
+@media(max-width:899px){.gallery-scene .photos{display:block;columns:2;column-gap:22px;padding:12px 8px}.gallery-scene .photo:nth-child(n){width:100%;margin:0 0 26px;inset:auto}}
+/* Окружности нужны только у пустых рамок. */
+.photo-area:has(img)::before,.photo-area:has(img)::after{content:none;display:none}
+.gallery-scene .photo .gallery-memory-caption{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.3;color:#e1b5ca;text-align:center;padding:12px 9px 16px;margin:0;font-style:italic}
+@media(max-width:600px){.gallery-scene .photo .gallery-memory-caption{font-size:16px;line-height:1.25;padding:9px 5px 11px}}

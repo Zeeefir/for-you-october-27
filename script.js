@@ -39,6 +39,14 @@ collections.forEach((photos,i)=>{
   pages[i].labels=photos.map(([,label])=>label);
 });
 
+pages[4].photos[4]={src:'assets/photos/gallery-wheel.jpg',label:'У колеса обозрения',position:'center 55%'};
+pages[4].labels[4]='У колеса обозрения';
+const extraGalleryPhotos=[{"src": "assets/photos/gallery-new-01.jpg", "label": "Наше воспоминание 1", "position": "center", "ratio": "806/1078"}, {"src": "assets/photos/gallery-new-02.jpg", "label": "Наше воспоминание 2", "position": "center", "ratio": "802/932"}, {"src": "assets/photos/gallery-new-03.jpg", "label": "Наше воспоминание 3", "position": "center", "ratio": "795/1074"}, {"src": "assets/photos/gallery-new-04.jpg", "label": "Наше воспоминание 4", "position": "center", "ratio": "1100/821"}, {"src": "assets/photos/gallery-new-05.jpg", "label": "Наше воспоминание 5", "position": "center", "ratio": "804/1062"}, {"src": "assets/photos/gallery-new-06.jpg", "label": "Наше воспоминание 6", "position": "center", "ratio": "800/1073"}];
+pages[4].photos.push(...extraGalleryPhotos);
+pages[4].labels.push(...extraGalleryPhotos.map(photo=>photo.label));
+pages[4].photos.push({src:'assets/photos/gallery-academy.jpg',position:'center',ratio:'1100/750'});
+pages[4].labels=["На мосту в Астане — вдвоём среди большого города ♡", "Сидели в парке Горького, а я ловил в кадре любимый взгляд ♡", "На дрифте с твоим папой и Матвейкой — ещё одно наше приключение ♡", "Наша первая поездка на Капчагай с моими родителями ♡", "В Кыргызстане, у колеса обозрения. И снова ты в моих объятиях ♡", "На горячих источниках с твоими родными — весёлый день вместе ♡", "Ты красилась, а мы нашли минутку для поцелуя в зеркале ♡", "Хотели поймать атмосферу звёздной ночи — и у нас получилось ♡", "В горах Алматы: шум реки, тёплый свет и мы рядом ♡", "Поездка на Капчагай с родителями. Счастье — вот так быть рядом ♡", "И снова Кыргызстан — как же весело нам тогда было ♡", "Сидели в академии, а ты фотографировалась на телефон Артура ♡"];
+pages[4].photos.forEach((photo,i)=>{photo.label=pages[4].labels[i];});
 pages[3].message='Смотрю на фотографии с твоего прошлого праздника, а сегодня начинается новый год твоей жизни. Мне так хочется, чтобы в нём было много поводов улыбаться.';
 pages[3].message+='\n\nПомнишь прошлый день рождения? Как нам было весело рядом со всеми. Сейчас ты тоже в большой компании. Да, эти люди ещё не такие родные, и ты знаешь их не так давно. Но они рядом — сейчас даже ближе, чем самые близкие, которые далеко.\n\nЯ очень скучаю по времени, которое мы проводили вместе. А ты в свой праздник не забывай улыбаться, даже если иногда хочется погрустить. Мне так хочется, чтобы в этот день у тебя было хорошее настроение и как можно больше поводов для радости ♡';
 pages[3].button='Ещё немного нас';
@@ -174,6 +182,7 @@ function render() {
   renderNicknameQuiz();
   $('photos').replaceChildren(...page.labels.map((label, i) => {
     const figure = document.createElement(page.gallery?'figure':'button'); if(!page.gallery) figure.type = 'button'; figure.className = 'photo';
+    if(page.gallery && page.photos[i].ratio)figure.style.setProperty('--photo-ratio',page.photos[i].ratio);
     figure.setAttribute('aria-label', page.gallery?label:page.friends?`${label} — открыть поздравление`:`${label} — прочитать на обороте`);
     if(!page.gallery) figure.setAttribute('aria-pressed', 'false');
     const inner = document.createElement('span'); inner.className = 'photo-inner';
@@ -185,7 +194,7 @@ function render() {
     img.decoding='async';
     img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); if(photoPath(current,i))img.src = photoPath(current, i);
     if(page.friends)area.querySelector('.placeholder-text').textContent='здесь будет фото';
-    if(page.gallery){front.append(area);inner.append(front);figure.append(inner);return figure;}
+    if(page.gallery){const description=document.createElement('figcaption');description.className='gallery-memory-caption';description.textContent=label;front.append(description,area);inner.append(front);figure.append(inner);return figure;}
     const caption = document.createElement('span'); caption.className = 'photo-caption'; caption.textContent = label;
     const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = page.friends?'открой поздравление ♡':'переверни ♡';
     const back = document.createElement('span'); back.className = 'photo-back'; back.setAttribute('aria-hidden','true');
