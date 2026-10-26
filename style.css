@@ -537,3 +537,4 @@ body.friend-dialog-open{overflow:hidden}
  .friend-letter-copy h2,.friend-group-letter .friend-letter-copy h2{font-size:clamp(30px,7vw,40px);line-height:1.15;margin:16px 0 22px}
  .friend-letter-copy p,.friend-group-letter .friend-letter-copy p{font-size:15px;line-height:1.85}
 }
+.friends-scene .photo-area:has(img[src*="friend-maxim-v2"]){aspect-ratio:1427/1080}
