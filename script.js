@@ -296,17 +296,8 @@ $('audio-dialog').addEventListener('close',()=>{
   if(pages[current].audio && current<pages.length-1){current++;render();}
   else if(pages[current].audio){$('caption').textContent='Обнимаю крепко. С днём рождения, солнышко ♡';}
 });
-let audioUrl;
-$('audio-file').onchange = e => {
-  const file=e.target.files[0];if(!file)return;
-  if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(file);$('voice').src=audioUrl;
-  $('voice').hidden=false;
-  $('audio-note').textContent='Запись готова. Нажми ▶, чтобы услышать её.';
-};
-// Когда запись готова, положите её в assets/voice.mp3 и раскомментируйте:
-// $('voice').src = 'assets/voice.mp3';
-// $('audio-note').textContent = 'Это сообщение — только для тебя.';
 $('voice').addEventListener('loadedmetadata',()=>{$('voice').hidden=false;});
+$('voice').addEventListener('error',()=>{$('audio-note').textContent='Не удалось загрузить запись. Проверь интернет и обнови страницу ♡';});
 // Каждый пролёт заново выбирает позицию, изгиб, скорость и прозрачность.
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const randomBetween = (min, max) => min + Math.random() * (max - min);
