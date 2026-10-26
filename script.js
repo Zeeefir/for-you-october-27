@@ -411,12 +411,16 @@ reducedMotion.addEventListener('change',()=>{
 
 
 // Поздравление: спокойная громкость и продолжение после прослушивания.
-const voice=$('voice'); voice.volume=1;
+const voice=$('voice'); voice.volume=.7;
 const voiceTime=value=>`${Math.floor(value/60)}:${String(Math.floor(value%60)).padStart(2,'0')}`;
-$('voice-play').onclick=()=>{if(voice.paused)voice.play().catch(()=>{$('audio-note').textContent='Нажми ещё раз, чтобы включить поздравление ♡';});else voice.pause();};
+let voiceContext=null,voiceGain=null;
+function prepareVoiceVolume(){try{if(!voiceContext){const AudioEngine=window.AudioContext||window.webkitAudioContext;if(AudioEngine){voiceContext=new AudioEngine();voiceGain=voiceContext.createGain();voiceContext.createMediaElementSource(voice).connect(voiceGain);voiceGain.connect(voiceContext.destination);voice.volume=1;voiceGain.gain.value=Number($('voice-volume').value)/100;}}if(voiceContext?.state==='suspended')voiceContext.resume().catch(()=>{});}catch{}}
+$('voice-play').onclick=()=>{prepareVoiceVolume();if(voice.paused)voice.play().catch(()=>{$('audio-note').textContent='Нажми ещё раз, чтобы включить поздравление ♡';});else voice.pause();};
 voice.addEventListener('play',()=>{$('voice-play').textContent='Ⅱ';$('voice-play').setAttribute('aria-label','Приостановить поздравление');});
 voice.addEventListener('pause',()=>{$('voice-play').textContent='▷';$('voice-play').setAttribute('aria-label','Воспроизвести поздравление');});
 voice.addEventListener('timeupdate',()=>{$('voice-seek').value=voice.duration?voice.currentTime/voice.duration*100:0;$('voice-time').textContent=voiceTime(voice.currentTime)+' / '+voiceTime(Number.isFinite(voice.duration)?voice.duration:67);});
 $('voice-seek').oninput=()=>{if(Number.isFinite(voice.duration))voice.currentTime=Number($('voice-seek').value)/100*voice.duration;};
 voice.addEventListener('ended',()=>{$('voice-done').hidden=false;$('voice-done').focus({preventScroll:true});});
 $('voice-done').onclick=()=>{$('audio-dialog').close();if(pages[current].audio&&current<pages.length-1){current++;render();}};
+
+$('voice-volume').oninput=()=>{const level=Number($('voice-volume').value)/100;if(voiceGain)voiceGain.gain.setTargetAtTime(level,voiceContext.currentTime,.03);else voice.volume=level;voice.muted=level===0;$('voice-volume-value').textContent=Math.round(level*100)+'%';};
