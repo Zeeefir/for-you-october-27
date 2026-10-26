@@ -35,13 +35,13 @@ function showDialog(data,isPrize){
  byId('reward-title').textContent=isPrize?data.name:data.label;byId('reward-note').textContent=isPrize?(data.description||'Этот скин — твой подарок. С любовью к тебе ♡'):data.note;
  dialog.querySelector('.overline').textContent=isPrize?'ТВОЙ СКИН-ПОДАРОК ♡':'ИЗ НАШЕЙ ИСТОРИИ';
  const claimed=isPrize&&state.openings.find(e=>e.id===data.id)?.claimed;
- byId('claim-memory').hidden=!isPrize;byId('claim-memory').disabled=Boolean(claimed);byId('claim-memory').textContent=claimed?'Этот подарок уже твой ♡':'Этот подарок мой ♡';
+ byId('claim-memory').hidden=!isPrize;byId('claim-memory').disabled=false;byId('claim-memory').textContent='Забрать все подарки ♡';
  byId('spin-again').hidden=!isPrize||GiftState.remaining(state)===0;
  byId('saved-note').textContent=isPrize?`${3-GiftState.remaining(state)} из 3 подарков открыто`:'';
  document.body.classList.add('result-open');dialog.showModal();byId('reward-close').focus({preventScroll:true});
 }
 function showPrize(prize){showDialog(prize,true);}
-byId('claim-memory').onclick=()=>{if(!selectedIsPrize||!selected)return;if(storeState(GiftState.claim(state,selected.id))){byId('claim-memory').textContent='Этот подарок уже твой ♡';byId('claim-memory').disabled=true;byId('saved-note').textContent='Подарок сохранён. С днём рождения, принцесса ♡';syncInterface();}};
+byId('claim-memory').onclick=()=>{if(selectedIsPrize)dialog.close();};
 byId('reward-close').onclick=()=>dialog.close();byId('spin-again').onclick=()=>{dialog.close();openCase();};
 dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
 dialog.addEventListener('close',()=>{document.body.classList.remove('result-open');if(!spinning){byId('roulette-panel').hidden=true;byId('case-hero').hidden=false;}previousFocus?.focus({preventScroll:true});});
@@ -83,13 +83,12 @@ function renderInventory(){
  const grid=byId('inventory');grid.replaceChildren();
  const opened=state.openings.filter(e=>e.status==='opened');
  if(!opened.length){grid.textContent='Здесь появятся твои подарки после открытия ♡';return;}
- opened.forEach(entry=>{const prize=giftPrizes.find(p=>p.id===entry.id);const card=document.createElement('article');card.className='prize-card';const img=document.createElement('img');img.src=prize.image;img.alt=prize.name;const title=document.createElement('strong');title.textContent=prize.name;const button=document.createElement('button');button.className='quiet-button';button.textContent=entry.claimed?'Вывод отмечен ♡':'Вывести скин ♡';button.disabled=Boolean(entry.claimed);button.onclick=()=>{if(!readTradeLink()){byId('inventory-note').textContent='Сначала сохрани свою трейд-ссылку выше ♡';byId('trade-link').focus();return;}storeState(GiftState.claim(state,prize.id));renderInventory();byId('inventory-note').textContent='Подарок отмечен для вывода. Передадим его вручную через Steam ♡';};const steam=document.createElement('a');steam.href='https://steamcommunity.com/my/tradeoffers/';steam.target='_blank';steam.rel='noopener noreferrer';steam.textContent='Открыть Steam ↗';steam.className='steam-link';card.append(img,title,button,steam);grid.append(card);});
+ opened.forEach(entry=>{const prize=giftPrizes.find(p=>p.id===entry.id);const card=document.createElement('article');card.className='prize-card';const img=document.createElement('img');img.src=prize.image;img.alt=prize.name;const title=document.createElement('strong');title.textContent=prize.name;const button=document.createElement('button');button.className='quiet-button';button.textContent=entry.claimed?'Вывод отмечен ♡':'Вывести скин ♡';button.disabled=Boolean(entry.claimed);button.onclick=()=>{storeState(GiftState.claim(state,prize.id));renderInventory();byId('inventory-note').textContent='Подарок отмечен для вывода. Передадим его вручную через Steam ♡';};card.append(img,title,button);grid.append(card);});
 }
 byId('promo-form').onsubmit=e=>{e.preventDefault();const code=byId('promo-code').value.trim().toLocaleLowerCase('ru').replace(/\s+/g,' ');if(!['я тебя люблю','я люблю тебя'].includes(code)){byId('promo-status').textContent='Подсказка: три слова, которые я говорю тебе всегда ♡';return;}if(hasPromo()){byId('promo-status').textContent='Промокод уже активирован ♡';return;}try{localStorage.setItem('kitty-love-promo-v2','yes');byId('promo-status').textContent='Я тебя тоже люблю! Твои 8130 ♡ уже здесь';syncInterface();}catch{byId('promo-status').textContent='Разреши сохранение данных в браузере и попробуй снова';}};
 syncInterface();renderIdle();
 
 function readTradeLink(){try{return localStorage.getItem('kitty-trade-link')||'';}catch{return '';}}
-byId('trade-link').value=readTradeLink();
+
 byId('open-profile').onclick=()=>{renderInventory();byId('profile-dialog').showModal();};
 byId('close-profile').onclick=()=>byId('profile-dialog').close();
-byId('trade-form').onsubmit=e=>{e.preventDefault();let url;try{url=new URL(byId('trade-link').value.trim());}catch{}if(!url||url.protocol!=='https:'||url.hostname!=='steamcommunity.com'||url.pathname!=='/tradeoffer/new/'||!url.searchParams.get('partner')||!url.searchParams.get('token')){byId('trade-status').textContent='Нужна ссылка обмена Steam с partner и token';return;}try{localStorage.setItem('kitty-trade-link',url.href);byId('trade-status').textContent='Трейд-ссылка сохранена ♡';}catch{byId('trade-status').textContent='Не удалось сохранить ссылку в браузере';}};
