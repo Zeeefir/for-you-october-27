@@ -416,8 +416,8 @@ const voiceTime=value=>`${Math.floor(value/60)}:${String(Math.floor(value%60)).p
 let voiceContext=null,voiceGain=null;
 function prepareVoiceVolume(){try{if(!voiceContext){const AudioEngine=window.AudioContext||window.webkitAudioContext;if(AudioEngine){voiceContext=new AudioEngine();voiceGain=voiceContext.createGain();voiceContext.createMediaElementSource(voice).connect(voiceGain);voiceGain.connect(voiceContext.destination);voice.volume=1;voiceGain.gain.value=Number($('voice-volume').value)/100;}}if(voiceContext?.state==='suspended')voiceContext.resume().catch(()=>{});}catch{}}
 $('voice-play').onclick=()=>{prepareVoiceVolume();if(voice.paused)voice.play().catch(()=>{$('audio-note').textContent='Нажми ещё раз, чтобы включить поздравление ♡';});else voice.pause();};
-voice.addEventListener('play',()=>{$('voice-play').textContent='Ⅱ';$('voice-play').setAttribute('aria-label','Приостановить поздравление');});
-voice.addEventListener('pause',()=>{$('voice-play').textContent='▷';$('voice-play').setAttribute('aria-label','Воспроизвести поздравление');});
+voice.addEventListener('play',()=>{$('voice-play').classList.add('is-playing');$('voice-play').setAttribute('aria-label','Приостановить поздравление');});
+voice.addEventListener('pause',()=>{$('voice-play').classList.remove('is-playing');$('voice-play').setAttribute('aria-label','Воспроизвести поздравление');});
 voice.addEventListener('timeupdate',()=>{$('voice-seek').value=voice.duration?voice.currentTime/voice.duration*100:0;$('voice-time').textContent=voiceTime(voice.currentTime)+' / '+voiceTime(Number.isFinite(voice.duration)?voice.duration:67);});
 $('voice-seek').oninput=()=>{if(Number.isFinite(voice.duration))voice.currentTime=Number($('voice-seek').value)/100*voice.duration;};
 voice.addEventListener('ended',()=>{$('voice-done').hidden=false;$('voice-done').focus({preventScroll:true});});
