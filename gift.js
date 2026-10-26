@@ -2,9 +2,9 @@
 const byId=id=>document.getElementById(id),memories=giftMemories;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const track=byId('roulette-track'),windowEl=byId('roulette-window'),openButton=byId('open-case'),dialog=byId('reward-dialog');
-const storageKey='kitty-three-skin-gifts-v3',prizeIds=giftPrizes.map(p=>p.id);
+const storageKey='kitty-gift-wallet-v1',prizeIds=giftPrizes.map(p=>p.id);
 let state=readState(),spinning=false,animation=null,selected=null,selectedIsPrize=false,previousFocus=null;
-function readState(){try{return GiftState.normalize(JSON.parse(localStorage.getItem(storageKey)||'null'),prizeIds);}catch{return {openings:[]};}}
+function readState(){try{return GiftState.normalize(JSON.parse(localStorage.getItem(storageKey)||'null'),prizeIds);}catch{return {promoActivated:false,openings:[]};}}
 function storeState(next){try{localStorage.setItem(storageKey,JSON.stringify(next));state=next;return true;}catch{return false;}}
 function randomIndex(length){if(globalThis.crypto?.getRandomValues){const value=new Uint32Array(1);crypto.getRandomValues(value);return Math.floor(value[0]/4294967296*length);}return Math.floor(Math.random()*length);}
 function photoElement(memory){const img=document.createElement('img');img.src=memory.src;img.alt=memory.label;img.decoding='async';img.style.objectPosition=memory.position||'center';return img;}
@@ -77,7 +77,7 @@ byId('memory-count').textContent=memories.length;
 memories.forEach((memory,i)=>{const button=document.createElement('button');button.type='button';button.className='memory-card';button.setAttribute('aria-label',`Посмотреть: ${memory.label}`);const image=photoElement(memory);image.loading='lazy';const number=document.createElement('span');number.className='memory-number';number.textContent=String(i+1).padStart(2,'0');const label=document.createElement('span');label.className='memory-label';label.textContent=memory.label;button.append(image,number,label);button.onclick=()=>{if(!spinning)showDialog(memory,false);};byId('contents-grid').append(button);});
 const tickerItems=memories;for(const memory of [...tickerItems,...tickerItems]){const item=document.createElement('div');item.className='ticker-item';item.setAttribute('aria-hidden','true');const label=document.createElement('span'),tag=document.createElement('small');tag.textContent='НАША ИСТОРИЯ';label.append(tag,document.createTextNode(memory.label));item.append(photoElement(memory),label);byId('ticker-track').append(item);}
 if(!reducedMotion.matches)for(let i=0;i<(innerWidth<600?12:22);i++){const heart=document.createElement('span');heart.className='gift-heart';heart.textContent='♡';heart.style.cssText=`left:${Math.random()*97}%;--size:${16+Math.random()*25}px;--duration:${25+Math.random()*20}s;--delay:-${Math.random()*40}s`;byId('gift-hearts').append(heart);}
-function hasPromo(){try{return localStorage.getItem('kitty-love-promo-v3')==='yes';}catch{return false;}}
+function hasPromo(){return state.promoActivated===true;}
 function renderInventory(){
  const balance=hasPromo()?Math.max(0,8130-state.openings.length*2710):0;byId('gift-balance').textContent=balance;byId('header-balance').textContent=balance+' ♡';
  const grid=byId('inventory');grid.replaceChildren();
@@ -85,7 +85,7 @@ function renderInventory(){
  if(!opened.length){grid.textContent='Здесь появятся твои подарки после открытия ♡';return;}
  opened.forEach(entry=>{const prize=giftPrizes.find(p=>p.id===entry.id);const card=document.createElement('article');card.className='prize-card';const img=document.createElement('img');img.src=prize.image;img.alt=prize.name;const title=document.createElement('strong');title.textContent=prize.name;const button=document.createElement('button');button.className='quiet-button';button.textContent=entry.claimed?'Вывод отмечен ♡':'Вывести скин ♡';button.disabled=Boolean(entry.claimed);button.onclick=()=>{storeState(GiftState.claim(state,prize.id));renderInventory();byId('inventory-note').textContent='Подарок отмечен для вывода. Передадим его вручную через Steam ♡';};card.append(img,title,button);grid.append(card);});
 }
-byId('promo-form').onsubmit=e=>{e.preventDefault();const code=byId('promo-code').value.trim().toLocaleLowerCase('ru').replace(/\s+/g,' ');if(!['я тебя люблю','я люблю тебя'].includes(code)){byId('promo-status').textContent='Подсказка: три слова, которые я говорю тебе всегда ♡';return;}if(hasPromo()){byId('promo-status').textContent='Промокод уже активирован ♡';return;}try{localStorage.setItem('kitty-love-promo-v3','yes');byId('promo-status').textContent='Я тебя тоже люблю! Твои 8130 ♡ уже здесь';syncInterface();}catch{byId('promo-status').textContent='Разреши сохранение данных в браузере и попробуй снова';}};
+byId('promo-form').onsubmit=e=>{e.preventDefault();const code=byId('promo-code').value.trim().toLocaleLowerCase('ru').replace(/\s+/g,' ');if(!['я тебя люблю','я люблю тебя'].includes(code)){byId('promo-status').textContent='Подсказка: три слова, которые я говорю тебе всегда ♡';return;}state=readState();if(hasPromo()){syncInterface();byId('promo-status').textContent=GiftState.remaining(state)?'Промокод активирован. Баланс: '+(GiftState.remaining(state)*2710)+' ♡':'Все 8130 ♡ потрачены на три подарка. Они в твоём профиле ♡';return;}if(storeState({...state,promoActivated:true})){byId('promo-status').textContent='Я тебя тоже люблю! Твои 8130 ♡ уже здесь';syncInterface();}else{byId('promo-status').textContent='Разреши сохранение данных в браузере и попробуй снова';}};
 syncInterface();renderIdle();
 
 function readTradeLink(){try{return localStorage.getItem('kitty-trade-link')||'';}catch{return '';}}
