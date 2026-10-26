@@ -564,3 +564,5 @@ body.friend-dialog-open{overflow:hidden}
 .voice-volume{display:flex;align-items:center;gap:8px;margin-top:13px;font-size:10px;color:#d7b7c7}.voice-volume>span{flex-shrink:0}.voice-volume input{flex:1;min-width:35px;width:60px;accent-color:#eeb4cc}.voice-volume output{font-size:10px;min-width:29px;text-align:right;color:#efbad1}
 
 #voice-play{position:relative;padding:0;display:grid;place-items:center;line-height:1;font-size:0}#voice-play::before{content:'';display:block;width:17px;height:20px;background:#3b1b2b;clip-path:polygon(0 0,100% 50%,0 100%);transform:translateX(2px)}#voice-play.is-playing::before{width:16px;height:19px;clip-path:none;transform:none;background:linear-gradient(to right,#3b1b2b 0 32%,transparent 32% 68%,#3b1b2b 68% 100%)}
+
+.share-note{max-width:540px;margin:15px auto 32px;padding:0 16px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:21px;line-height:1.6;color:#d9a9be}.share-note[hidden]{display:none}

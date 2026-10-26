@@ -167,7 +167,7 @@ function renderNicknameQuiz(){
 function render() {
   document.querySelector('.friends-scroll-controls')?.remove();
   const page = pages[current];
-  $('gift-gate').hidden=!page.smile;
+  $('gift-gate').hidden=!page.smile;$('share-note').hidden=!page.smile;
   try{sessionStorage.setItem('birthday-current-slide',page.key);}catch{}
   $('eyebrow').textContent = page.eyebrow;
   $('title').innerHTML = page.title;
