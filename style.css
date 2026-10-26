@@ -538,3 +538,25 @@ body.friend-dialog-open{overflow:hidden}
  .friend-letter-copy p,.friend-group-letter .friend-letter-copy p{font-size:15px;line-height:1.85}
 }
 
+.gift-gate[hidden]{display:none}.gift-gate{text-align:center;padding:34px 18px 45px;border-top:1px solid #4a2c3a66;margin-top:24px}.gift-gate>p:not(.eyebrow){font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:#bca0af;margin:0 0 22px}.gift-gate .eyebrow{margin:0 0 13px}.gift-link{display:inline-flex;align-items:center;justify-content:center;gap:20px;text-decoration:none}.gift-link>span{font-size:20px}
+@media(max-width:600px){.gift-gate{padding-inline:4px}.gift-gate>p:not(.eyebrow){font-size:21px}}
+/* Крупные боковые снимки на ноутбуках и мониторах. */
+@media(min-width:1200px){
+ #scene:not(.gallery-scene):not(.friends-scene){padding-left:300px;padding-right:300px;min-height:760px}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo:nth-child(1){width:clamp(225px,18vw,265px);left:5px}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo:nth-child(2){width:clamp(225px,18vw,265px);right:0}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo:nth-child(3){width:clamp(210px,17vw,245px);right:12px;top:410px}
+ #scene.four-photos{min-height:900px}
+ #scene.four-photos .photo:nth-child(3){right:0;top:450px;width:225px}
+ #scene.four-photos .photo:nth-child(4){left:10px;top:475px;width:225px}
+ #scene.smile-photos:has(.photos[data-count="5"]){min-height:1010px;padding-left:300px;padding-right:300px}
+ #scene.smile-photos .photos[data-count="5"] .photo:nth-child(1){width:235px;left:0;top:65px}
+ #scene.smile-photos .photos[data-count="5"] .photo:nth-child(2){width:220px;right:0;top:0}
+ #scene.smile-photos .photos[data-count="5"] .photo:nth-child(3){width:230px;left:15px;right:auto;top:490px}
+ #scene.smile-photos .photos[data-count="5"] .photo:nth-child(4){width:220px;right:25px;left:auto;top:320px}
+ #scene.smile-photos .photos[data-count="5"] .photo:nth-child(5){width:220px;right:0;left:auto;top:625px}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo-caption{font-size:19px;line-height:1.2}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo-note{font-size:12px;line-height:1.65}
+}
+
+#audio-dialog{overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at top,#47233388,transparent 65%),#171016}#voice{display:none!important}.voice-player{display:flex;align-items:center;gap:16px;margin:30px 0 20px;padding:20px 15px;background:#f1acc60a;border:1px solid #f1acc630;border-radius:20px;position:relative;z-index:1}.voice-player button{flex-shrink:0;width:49px;height:49px;border-radius:50%;border:1px solid #efbad1;background:#eeb4cc;color:#27121d;font-size:23px;display:grid;place-items:center}.voice-timeline{flex:1;min-width:0}.voice-timeline>span{font-size:10px;color:#eab7cd}.voice-timeline input{width:100%;accent-color:#eeb4cc;cursor:pointer;height:20px}.voice-timeline small{margin:0;font-size:10px}#voice-done{display:block;margin:22px auto 0}#voice-done[hidden]{display:none}.voice-hearts{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden}.voice-hearts span{position:absolute;bottom:-40px;color:#f1acc64a;font:30px Georgia;animation:voice-float 14s linear infinite}.voice-hearts span:nth-child(1){left:8%;animation-delay:-3s}.voice-hearts span:nth-child(2){left:28%;animation-delay:-10s}.voice-hearts span:nth-child(3){left:53%;animation-delay:-6s}.voice-hearts span:nth-child(4){left:75%;animation-delay:-1s}.voice-hearts span:nth-child(5){left:90%;animation-delay:-12s}@keyframes voice-float{to{transform:translateY(-480px) rotate(24deg);opacity:0}}@media(prefers-reduced-motion:reduce){.voice-hearts span{animation:none}}

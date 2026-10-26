@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b090d"><meta name="robots" content="noindex,nofollow">
+  <title>Принцесса крутит ♡</title><link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="gift.css?v=92"><script src="gift-state.js?v=92" defer></script><script src="gift-prizes.js?v=92" defer></script><script src="gift-memories.js?v=92" defer></script><script src="gift.js?v=92" defer></script>
+</head>
+<body>
+  <div class="gift-hearts" id="gift-hearts" aria-hidden="true"></div>
+  <header class="game-header">
+    <a class="game-brand" href="gift.html"><span class="brand-heart" aria-hidden="true">♡</span><span>ПРИНЦЕССА <b>КРУТИТ</b><small>ЗДЕСЬ ВЫПАДАЕТ ЛЮБОВЬ</small></span></a>
+    <nav class="game-nav" aria-label="Разделы подарка">
+      <a class="active" href="#our-case"><span aria-hidden="true">◇</span>Наш кейс</a>
+      <a href="#memories"><span aria-hidden="true">▧</span>Воспоминания</a>
+      <a href="#for-princess"><span aria-hidden="true">♡</span>Для принцессы</a>
+    </nav>
+    <a href="#profile" class="kitty-profile"><img src="assets/photos/memory-26.jpg" alt="Kitty"><span><strong>Kitty</strong><small>твой особенный день</small></span><b aria-label="18 лет">18</b></a>
+  </header>
+  <div class="memory-ticker" aria-label="Мгновения из нашей истории"><div id="ticker-track" class="ticker-track"></div></div>
+  <main class="gift-main">
+    <a class="back-to-letter" href="index.html">← Вернуться к поздравлению</a>
+    <form id="promo-form" class="promo-panel"><label for="promo-code">Маленький секрет для принцессы ♡</label><div><input id="promo-code" placeholder="Твой промокод" autocomplete="off" required><button class="pink-button">Активировать</button></div><p id="promo-status" role="status">Впиши самые важные три слова</p><strong>Баланс: <span id="gift-balance">0</span> ♡</strong><small>Подарочные баллы · открытие 1111 ♡</small></form><section id="our-case" class="case-section">
+      <p class="overline">СЕКРЕТНЫЙ ПОДАРОК · 27 ОКТЯБРЯ</p>
+      <h1>Кейс <em>наших моментов</em></h1>
+      <p class="case-intro">Наши фотографии в ленте. Три настоящих скина в подарок. Всё для тебя, Kitty ♡</p>
+      <div class="case-hero" id="case-hero">
+        <div class="case-art"><div class="case-orbit"></div><img src="assets/princess-case.svg" alt="Розовый кейс Kitty с сердечком"><span class="case-stamp">СОБРАН С ЛЮБОВЬЮ</span></div>
+        <div class="case-description"><span class="pill">ОДИН КЕЙС · ТРИ ПОДАРКА</span><h2>Улыбка твоя.<br>Подарки <em>тоже ♡</em></h2><p>Пока крутится лента, вспоминай нас. А в конце каждого открытия тебя ждёт один скин-подарок.</p><div class="case-facts"><span><strong id="attempts-left">3 / 3</strong> открытия осталось</span><span><strong id="memory-count">—</strong> мгновений в ленте</span></div></div>
+      </div>
+      <div class="roulette-panel" id="roulette-panel">
+        <div class="roulette-caption"><span>НАШИ МОМЕНТЫ · ТВОИ ПОДАРКИ</span><span class="live-heart" aria-hidden="true">♡</span></div>
+        <div class="roulette-window" id="roulette-window" aria-label="Лента фотографий"><div class="roulette-track" id="roulette-track"></div><div class="roulette-marker" aria-hidden="true"><i></i></div></div>
+        <p class="spin-status" id="spin-status" role="status" aria-live="polite">Готовлю для тебя три подарка ♡</p>
+      </div>
+      <div class="spin-actions"><button id="open-case" class="pink-button" disabled>Подарки скоро появятся ♡</button><label class="quick-option"><input id="quick-spin" type="checkbox"><span>Быстро</span></label></div>
+      <p class="spin-footnote">Три открытия. Три подарка. Каждый скин выпадет только один раз.</p>
+      <div class="case-shelf" aria-label="Наши кейсы">
+        <div class="mini-case selected"><span aria-hidden="true">♡</span><div><strong>Наши моменты</strong><small>Один особенный кейс для Kitty</small></div><b id="shelf-count">3 / 3</b></div>
+      </div>
+    </section>
+    <section class="contents-section" id="memories"><div class="section-title"><div><p class="overline">ТРИ СКИНА · ВСЕ ТВОИ</p><h2>Что внутри <em>кейса</em></h2></div><span id="collection-count" class="collection-count">Открыто 0 из 3</span></div><div class="prizes-grid" id="prizes-grid"></div><div class="section-title memories-title"><div><p class="overline">ЗНАКОМЫЕ КАДРЫ В ЛЕНТЕ</p><h2>Наши <em>воспоминания</em></h2></div></div><div class="contents-grid" id="contents-grid"></div></section>
+    <section id="profile" class="contents-section"><p class="overline">ПРОФИЛЬ KITTY</p><h2>Твои <em>подарки</em></h2><p>История и инвентарь сохраняются в этом браузере.</p><div id="inventory" class="prizes-grid"></div><p id="inventory-note" role="status"></p></section><section id="for-princess" class="princess-note"><span aria-hidden="true">♡</span><p class="overline">ОДНА ПРИНЦЕССА. ЦЕЛЫЙ МИР ВОСПОМИНАНИЙ.</p><h2>В любом выпадении —<br><em>моя любовь к тебе.</em></h2><p>И как бы ни остановилась лента, я всё равно выбираю тебя.</p><a href="https://t.me/m/DYYZnQJrMzVi" target="_blank" rel="noopener noreferrer">Рассказать мне, что выпало ↗</a></section>
+  </main>
+  <footer class="game-footer"><span>Принцесса крутит ♡</span><span>Создано для Kitty. С любовью, Стас.</span><a href="index.html">К нашему письму ↗</a></footer>
+  <dialog id="reward-dialog" class="reward-dialog" aria-labelledby="reward-title"><button class="reward-close" id="reward-close" aria-label="Закрыть подарок">×</button><p class="overline">ТВОЙ ПОДАРОК ♡</p><div class="reward-photo"><img id="reward-image" alt=""></div><h2 id="reward-title"></h2><p id="reward-note" class="reward-note"></p><p class="saved-note" id="saved-note" role="status"></p><div class="reward-actions"><button id="claim-memory" class="pink-button">Этот подарок мой ♡</button><button id="spin-again" class="quiet-button">Открыть следующий ↻</button></div></dialog>
+</body>
+</html>

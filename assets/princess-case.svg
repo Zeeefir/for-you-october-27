@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 390" fill="none">
+<defs><linearGradient id="lid" x1="145" y1="45" x2="390" y2="208" gradientUnits="userSpaceOnUse"><stop stop-color="#552a43"/><stop offset=".5" stop-color="#231520"/><stop offset="1" stop-color="#6a3551"/></linearGradient><linearGradient id="front" x1="110" y1="220" x2="420" y2="370" gradientUnits="userSpaceOnUse"><stop stop-color="#673047"/><stop offset=".5" stop-color="#301c2a"/><stop offset="1" stop-color="#50243a"/></linearGradient><linearGradient id="ribbon" x1="160" y1="120" x2="330" y2="360" gradientUnits="userSpaceOnUse"><stop stop-color="#ffd1e7"/><stop offset=".5" stop-color="#e9a3c4"/><stop offset="1" stop-color="#a7547d"/></linearGradient><radialGradient id="glow"><stop stop-color="#e68db5" stop-opacity=".28"/><stop offset="1" stop-color="#e68db5" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="263" cy="335" rx="230" ry="44" fill="url(#glow)"/>
+<path d="M84 231 115 95Q117 82 130 80L365 43Q379 41 382 56L410 205Z" fill="url(#lid)" stroke="#dd9abf" stroke-width="3"/>
+<path d="m109 219 26-117 230-36 24 128Z" fill="#1b121d" stroke="#aa668d"/>
+<path d="M254 168c-7-9-44-30-40-54 4-22 31-24 40-5 11-21 40-16 41 6 1 24-32 45-41 53Z" stroke="#f0b2d1" stroke-width="5"/>
+<path d="m170 89 19-4 8 116-22 4Z" fill="url(#ribbon)" opacity=".8"/>
+<path d="m92 222 282-44 69 55-279 57Z" fill="#71334e" stroke="#e3a3c5" stroke-width="2"/>
+<path d="m92 222 72 68v68l-72-61Z" fill="#301b2b" stroke="#9c5c7e" stroke-width="2"/>
+<path d="m164 290 279-57-2 70-277 55Z" fill="url(#front)" stroke="#d394b5" stroke-width="2"/>
+<path d="m288 195 31-5 17 64-32 7Z" fill="url(#ribbon)"/>
+<path d="m304 261 32-7-1 70-31 6Z" fill="url(#ribbon)"/>
+<path d="m182 307 100-20m65-13 76-16M183 341l98-20m65-13 76-16" stroke="#925471"/>
+<path d="m147 265 17 15 279-57v10l-279 57-17-16Z" fill="#e8aacb" opacity=".5"/>
+<path d="m294 276 43-8v31l-43 8Z" fill="#8d3d65" stroke="#f6c3dc" stroke-width="2"/>
+<path d="M314 294c-3-2-9-5-8-10 1-4 6-4 8-1 2-4 7-4 8 0 1 4-5 9-8 11Z" fill="#ffd4e8"/>
+<text x="222" y="325" fill="#f1b4d0" font-family="Georgia,serif" font-size="18" letter-spacing="4" transform="rotate(-11 222 325)">KITTY</text>
+<g stroke="#efb2d0" stroke-linecap="round"><path d="M74 96v20m-10-10h20m345 4v24m-12-12h24M414 335v14m-7-7h14"/><path d="M103 160c-10-15-23-3-10 7l10 8 10-14c7-13-8-18-10-1Zm321 35c-9-14-21-2-9 7l9 7 9-12c7-12-7-16-9-2Z" opacity=".65"/></g>
+</svg>
