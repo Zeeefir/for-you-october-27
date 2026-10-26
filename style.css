@@ -438,3 +438,102 @@ html{scrollbar-gutter:stable}
 .photo-area:has(img)::before,.photo-area:has(img)::after{content:none;display:none}
 .gallery-scene .photo .gallery-memory-caption{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.3;color:#e1b5ca;text-align:center;padding:12px 9px 16px;margin:0;font-style:italic}
 @media(max-width:600px){.gallery-scene .photo .gallery-memory-caption{font-size:16px;line-height:1.25;padding:9px 5px 11px}}
+/* Адаптация по размеру экрана, независимо от модели устройства. */
+html{ -webkit-text-size-adjust:100%;text-size-adjust:100% }
+body{overflow-x:clip}
+.copy,.bottom,.friend-letter-copy{min-width:0}
+.message,.photo-caption,.gallery-memory-caption,.friend-letter-copy{overflow-wrap:break-word}
+.primary,.sound,.back{touch-action:manipulation}
+.close{min-width:44px;min-height:44px}
+@media(max-width:1199px){
+ #scene:not(.gallery-scene):not(.friends-scene){padding:35px 0;min-height:0;display:flex;flex-direction:column}
+ #scene:not(.gallery-scene):not(.friends-scene) .copy{width:100%;max-width:680px;margin-inline:auto}
+ #scene:not(.gallery-scene):not(.friends-scene) .photos{position:relative;inset:auto;display:flex;justify-content:center;gap:22px;max-width:680px;width:100%;margin:35px auto 25px;pointer-events:auto}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo:nth-child(n){position:relative;inset:auto;flex:1;width:auto;max-width:220px}
+ #scene.smile-photos .photos[data-count="5"]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:600px;padding:12px;gap:24px}
+ .smile-photos .photos[data-count="5"] .photo:nth-child(n){width:100%;max-width:none}
+ .smile-photos .photos[data-count="5"] .photo:last-child{grid-column:1/-1;width:calc(50% - 12px);justify-self:center}
+ .message{max-width:600px}
+ header .header-note{font-size:9px;letter-spacing:1.7px}
+}
+@media(min-width:601px) and (max-width:1199px){
+ h1{font-size:clamp(53px,7vw,72px)}
+ .message{font-size:14px;line-height:1.85}
+ .photo-caption{font-size:17px}
+ .photo-note{font-size:13px;line-height:1.6}
+ .friend-letter[open]{gap:24px;padding:52px 24px 26px}
+ .friend-letter-copy h2{font-size:36px}
+ .friend-letter-copy p{font-size:15px;line-height:1.8}
+}
+@media(max-width:600px){
+ main{padding-inline:clamp(16px,4.8vw,24px)}
+ header{padding-inline:20px}
+ #scene:not(.gallery-scene):not(.friends-scene) h1{font-size:clamp(39px,11.5vw,57px);line-height:1.08}
+ .message{font-size:13px;line-height:1.85;max-width:100%}
+ #scene:not(.gallery-scene):not(.friends-scene) .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px;padding:8px 5px}
+ #scene:not(.gallery-scene):not(.friends-scene) .photo:nth-child(n){width:100%;max-width:none}
+ #scene:not(.gallery-scene):not(.friends-scene) .photos[data-count="3"] .photo:last-child{grid-column:1/-1;width:calc(50% - 8px);justify-self:center}
+ .photo-caption{font-size:15px;line-height:1.2;min-height:36px}
+ .photo-note{font-size:11px;line-height:1.6}
+ .photo-back-title{font-size:16px}
+ .photo-hint{font-size:8px}
+ .actions{gap:10px}.primary{min-width:0;max-width:calc(100% - 54px);padding:16px 22px;min-height:48px}.back{width:44px;height:44px}
+ .friends-scene .photos{overscroll-behavior-x:contain}
+ .friends-scene .photo:nth-child(n){min-width:160px;flex-basis:160px}
+ .friend-letter[open],.friend-group-letter[open]{grid-template-columns:1fr;width:calc(100% - 24px);max-height:calc(100dvh - 24px);gap:24px;padding:52px 20px 26px}
+ .friend-letter-copy p{font-size:15px;line-height:1.8}.friend-letter-copy h2{font-size:34px;overflow-wrap:anywhere}
+ .friend-letter .close{position:absolute;right:8px;top:6px}
+ .nickname-quiz{max-width:100%;box-sizing:border-box}
+ footer{flex-wrap:wrap;gap:12px;font-size:9px;line-height:1.5}
+ .welcome{max-height:100dvh;overflow-y:auto;overscroll-behavior:contain}
+ .welcome-content{margin-block:auto}
+}
+@media(max-width:360px){
+ .gallery-scene .photos{columns:1;max-width:300px;margin-inline:auto;padding-inline:12px}
+ .gallery-scene .photo .gallery-memory-caption{font-size:19px}
+ .friends-scene h1{font-size:39px}
+ .chapter{letter-spacing:1.2px;gap:8px}.line{width:18px}
+}
+@media(max-height:560px) and (orientation:landscape){
+ .welcome{align-items:flex-start;padding:18px 12px}.welcome-content{margin:auto}.welcome-heart{display:none}
+ #welcome-title{font-size:54px}.welcome-overline{margin-bottom:8px}.welcome-note{margin:8px auto}.welcome-signature{margin-top:10px}
+ .friend-letter[open]{max-height:calc(100dvh - 16px)}
+}
+@media(min-width:1600px){
+ main{max-width:1540px}
+ #scene:not(.gallery-scene):not(.friends-scene){padding-left:340px;padding-right:340px}
+ .message{max-width:600px;font-size:14px;line-height:1.9}
+ .gallery-scene .photos{column-gap:48px}
+}
+body{min-width:0;width:100%}
+@media(min-width:1000px) and (max-width:1199px){#scene.smile-photos .copy,#scene.smile-photos .bottom{max-width:680px;width:100%}}
+@media(max-width:600px){html{scrollbar-gutter:auto}}
+@media(max-height:650px){
+ .welcome{padding:16px 20px}
+ .welcome-heart{height:70px;width:90px;margin-bottom:8px}.welcome-heart>span{font-size:72px}
+ .welcome-overline{margin-bottom:10px}.welcome-kicker{font-size:16px;margin-bottom:10px}
+ #welcome-title{font-size:52px}.welcome-note{font-size:11px;line-height:1.6;margin:12px 0}
+ .welcome-loading{margin-bottom:8px;min-height:34px}.welcome-signature{font-size:16px;margin-top:10px}
+ .envelope{width:132px;height:78px}.envelope-button{padding-top:6px}.envelope-label{margin-top:10px}
+}
+/* Прокрутка друзей заметна и доступна без угадывания жестов. */
+.friends-scroll-controls{display:none}
+body.friend-dialog-open{overflow:hidden}
+@media(max-width:1199px){
+ .friends-scroll-controls{display:flex;justify-content:center;align-items:center;gap:16px;margin:24px auto 0;color:#d0a5bb;font-size:12px}
+ .friends-scroll-controls button{display:grid;place-items:center;border:1px solid #765166;border-radius:50%;width:44px;height:44px;padding:0;background:#2a182260;color:#efb6d0;font-size:22px;line-height:1}
+ .friends-scene .photos{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#c17d9e #36202b;scroll-snap-type:x proximity;padding-bottom:32px;margin-top:8px}
+ .friends-scene .photos::-webkit-scrollbar{display:block;height:4px}
+ .friends-scene .photos::-webkit-scrollbar-track{background:#36202b;border-radius:99px}
+ .friends-scene .photos::-webkit-scrollbar-thumb{background:#c17d9e;border-radius:99px}
+ .friends-scene .photo:nth-child(n){flex:0 0 clamp(165px,38vw,230px);min-width:165px}
+}
+/* Поток вместо сжимающихся grid-строк: фотография не накрывает текст в Safari. */
+@media(max-width:900px){
+ .friend-letter[open],.friend-group-letter[open]{display:block;height:auto;max-height:calc(100dvh - 24px);max-height:calc(100svh - 24px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:54px 22px 28px;scrollbar-gutter:stable}
+ .friend-letter .friend-picture{position:relative;display:block;inset:auto;width:90%;height:auto;min-height:0;max-height:none;margin:8px auto 32px;transform:rotate(-2deg)}
+ .friend-letter .friend-picture img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:32svh;margin:auto;object-fit:contain;transform:none}
+ .friend-letter .friend-letter-copy{position:relative;display:block;clear:both;margin:0;padding:0;min-height:0}
+ .friend-letter-copy h2,.friend-group-letter .friend-letter-copy h2{font-size:clamp(30px,7vw,40px);line-height:1.15;margin:16px 0 22px}
+ .friend-letter-copy p,.friend-group-letter .friend-letter-copy p{font-size:15px;line-height:1.85}
+}

@@ -161,6 +161,7 @@ function renderNicknameQuiz(){
   document.querySelector('.copy').append(quiz);
 }
 function render() {
+  document.querySelector('.friends-scroll-controls')?.remove();
   const page = pages[current];
   try{sessionStorage.setItem('birthday-current-slide',page.key);}catch{}
   $('eyebrow').textContent = page.eyebrow;
@@ -192,6 +193,7 @@ function render() {
     const img = document.createElement('img'); img.alt = label;
     img.style.objectPosition=page.photos[i].position;
     img.decoding='async';
+    img.loading=page.gallery?'lazy':'eager';
     img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); if(photoPath(current,i))img.src = photoPath(current, i);
     if(page.friends)area.querySelector('.placeholder-text').textContent='здесь будет фото';
     if(page.gallery){const description=document.createElement('figcaption');description.className='gallery-memory-caption';description.textContent=label;front.append(description,area);inner.append(front);figure.append(inner);return figure;}
@@ -222,6 +224,15 @@ function render() {
     };
     return figure;
   }));
+  if(page.friends){
+    const controls=document.createElement('div');controls.className='friends-scroll-controls';
+    const previous=document.createElement('button');previous.type='button';previous.textContent='←';previous.setAttribute('aria-label','Предыдущие фотографии друзей');
+    const next=document.createElement('button');next.type='button';next.textContent='→';next.setAttribute('aria-label','Следующие фотографии друзей');
+    const hint=document.createElement('span');hint.textContent=`Листай вбок · ${page.photos.length} карточек`;
+    previous.onclick=()=>$('photos').scrollBy({left:-$('photos').clientWidth*.8,behavior:reducedMotion.matches?'instant':'smooth'});
+    next.onclick=()=>$('photos').scrollBy({left:$('photos').clientWidth*.8,behavior:reducedMotion.matches?'instant':'smooth'});
+    controls.append(previous,hint,next);$('photos').before(controls);
+  }
   $('progress').replaceChildren(...pages.map((_,i) => {
     const button = document.createElement('button'); button.className = i === current ? 'active' : '';
     button.setAttribute('aria-label', `Страница ${i+1}`); if(i===current) button.setAttribute('aria-current','step');
@@ -246,14 +257,14 @@ function openFriendCard(source,index){
   const text=document.createElement('p');text.textContent=page.photoNotes?.[index] || 'Здесь будет текст поздравления ♡';
   letter.append(overline,title,text);
   close.onclick=()=>dialog.close();dialog.onclick=e=>{if(e.target===dialog)dialog.close();};
-  dialog.onclose=()=>{dialog.remove();source.focus({preventScroll:true});};
+  dialog.onclose=()=>{document.body.classList.remove('friend-dialog-open');dialog.remove();source.focus({preventScroll:true});};
   const decoration=document.createElement('div');decoration.className='letter-hearts';decoration.setAttribute('aria-hidden','true');
   for(let i=0;i<15;i++){
     const heart=document.createElement('span');heart.textContent='♡';
     heart.style.cssText=`left:${4+Math.random()*91}%;top:${4+Math.random()*88}%;--size:${18+Math.random()*35}px;--tilt:${-23+Math.random()*46}deg;--duration:${7+Math.random()*7}s;--delay:${-Math.random()*14}s`;
     decoration.append(heart);
   }
-  dialog.append(decoration,close,picture,letter);document.body.append(dialog);dialog.showModal();close.focus();
+  dialog.append(decoration,close,picture,letter);document.body.append(dialog);document.body.classList.add('friend-dialog-open');dialog.showModal();close.focus();
 }
 function burst(button, count = 10) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -320,7 +331,8 @@ function startHearts() {
   $('hearts').getAnimations({subtree:true}).forEach(animation => animation.cancel());
   $('hearts').replaceChildren();
   if(reducedMotion.matches) return;
-  for(let i=0;i<42;i++){
+  const heartCount=window.innerWidth<600?18:window.innerWidth<1200?28:42;
+  for(let i=0;i<heartCount;i++){
     const heart=document.createElement('span');heart.className='floating-heart';heart.textContent='♡';
     $('hearts').append(heart);
     flyHeart(heart,true);
@@ -338,7 +350,7 @@ for(let i=0;i<18;i++){
   $('welcome-hearts').append(heart);
 }
 document.body.classList.add('welcome-open');
-const welcomeAssets=pages[current].photos;
+const welcomeAssets=pages[current].photos.slice(0,4);
 let welcomeLoaded=0;
 let welcomeReady=false;
 function readyWelcome(){
