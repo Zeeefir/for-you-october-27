@@ -15,7 +15,7 @@ function syncInterface(){
  byId('collection-count').textContent=`Открыто ${state.openings.filter(e=>e.status==='opened').length} из 3`;
  openButton.disabled=spinning||!allPrizesReady()||(!pending&&(remaining===0||!hasPromo()));
  byId('quick-spin').disabled=spinning||!allPrizesReady()||remaining===0;
- openButton.textContent=!hasPromo()?'Сначала активируй промокод ♡':spinning?'Твой подарок уже близко…':!allPrizesReady()?'Подарки скоро появятся ♡':pending?'Получить мой подарок ♡':remaining?`Открыть кейс · ${remaining} из 3`:'Все три подарка — твои ♡';
+ openButton.textContent=!hasPromo()?'Сначала активируй промокод ♡':spinning?'Твой подарок уже близко…':!allPrizesReady()?'Подарки скоро появятся ♡':pending?'Получить мой подарок ♡':remaining?'Открыть за 2710 ♡':'Все три подарка — твои ♡';
  if(!spinning)byId('spin-status').textContent=!allPrizesReady()?'Готовлю для тебя три скина. Открытия скоро станут доступны ♡':pending?'Одно открытие ждёт тебя. Твой подарок сохранился ♡':remaining?'В ленте — наши фотографии. В результате — твой скин-подарок ♡':'Все три подарка открыты. Их можно посмотреть ниже ♡';
  document.querySelectorAll('.memory-card').forEach(button=>button.disabled=spinning);
  renderPrizes();renderInventory();
@@ -79,13 +79,13 @@ const tickerItems=memories.slice(0,12);for(const memory of [...tickerItems,...ti
 if(!reducedMotion.matches)for(let i=0;i<(innerWidth<600?12:22);i++){const heart=document.createElement('span');heart.className='gift-heart';heart.textContent='♡';heart.style.cssText=`left:${Math.random()*97}%;--size:${16+Math.random()*25}px;--duration:${25+Math.random()*20}s;--delay:-${Math.random()*40}s`;byId('gift-hearts').append(heart);}
 function hasPromo(){try{return localStorage.getItem('kitty-love-promo-v2')==='yes';}catch{return false;}}
 function renderInventory(){
- byId('gift-balance').textContent=hasPromo()?3333-state.openings.length*1111:0;
+ byId('gift-balance').textContent=hasPromo()?8130-state.openings.length*2710:0;
  const grid=byId('inventory');grid.replaceChildren();
  const opened=state.openings.filter(e=>e.status==='opened');
  if(!opened.length){grid.textContent='Здесь появятся твои подарки после открытия ♡';return;}
  opened.forEach(entry=>{const prize=giftPrizes.find(p=>p.id===entry.id);const card=document.createElement('article');card.className='prize-card';const img=document.createElement('img');img.src=prize.image;img.alt=prize.name;const title=document.createElement('strong');title.textContent=prize.name;const button=document.createElement('button');button.className='quiet-button';button.textContent=entry.claimed?'Вывод отмечен ♡':'Вывести скин ♡';button.disabled=Boolean(entry.claimed);button.onclick=()=>{if(!readTradeLink()){byId('inventory-note').textContent='Сначала сохрани свою трейд-ссылку выше ♡';byId('trade-link').focus();return;}storeState(GiftState.claim(state,prize.id));renderInventory();byId('inventory-note').textContent='Подарок отмечен для вывода. Передадим его вручную через Steam ♡';};const steam=document.createElement('a');steam.href='https://steamcommunity.com/my/tradeoffers/';steam.target='_blank';steam.rel='noopener noreferrer';steam.textContent='Открыть Steam ↗';steam.className='steam-link';card.append(img,title,button,steam);grid.append(card);});
 }
-byId('promo-form').onsubmit=e=>{e.preventDefault();const code=byId('promo-code').value.trim().toLocaleLowerCase('ru').replace(/\s+/g,' ');if(!['я тебя люблю','я люблю тебя'].includes(code)){byId('promo-status').textContent='Подсказка: три слова, которые я говорю тебе всегда ♡';return;}if(hasPromo()){byId('promo-status').textContent='Промокод уже активирован ♡';return;}try{localStorage.setItem('kitty-love-promo-v2','yes');byId('promo-status').textContent='Я тебя тоже люблю! Твои 3333 ♡ уже здесь';syncInterface();}catch{byId('promo-status').textContent='Разреши сохранение данных в браузере и попробуй снова';}};
+byId('promo-form').onsubmit=e=>{e.preventDefault();const code=byId('promo-code').value.trim().toLocaleLowerCase('ru').replace(/\s+/g,' ');if(!['я тебя люблю','я люблю тебя'].includes(code)){byId('promo-status').textContent='Подсказка: три слова, которые я говорю тебе всегда ♡';return;}if(hasPromo()){byId('promo-status').textContent='Промокод уже активирован ♡';return;}try{localStorage.setItem('kitty-love-promo-v2','yes');byId('promo-status').textContent='Я тебя тоже люблю! Твои 8130 ♡ уже здесь';syncInterface();}catch{byId('promo-status').textContent='Разреши сохранение данных в браузере и попробуй снова';}};
 syncInterface();renderIdle();
 
 function readTradeLink(){try{return localStorage.getItem('kitty-trade-link')||'';}catch{return '';}}
