@@ -44,7 +44,7 @@ function showPrize(prize){showDialog(prize,true);}
 byId('claim-memory').onclick=()=>{if(!selectedIsPrize||!selected)return;if(storeState(GiftState.claim(state,selected.id))){byId('claim-memory').textContent='Этот подарок уже твой ♡';byId('claim-memory').disabled=true;byId('saved-note').textContent='Подарок сохранён. С днём рождения, принцесса ♡';syncInterface();}};
 byId('reward-close').onclick=()=>dialog.close();byId('spin-again').onclick=()=>{dialog.close();openCase();};
 dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
-dialog.addEventListener('close',()=>{document.body.classList.remove('result-open');previousFocus?.focus({preventScroll:true});});
+dialog.addEventListener('close',()=>{document.body.classList.remove('result-open');if(!spinning){byId('roulette-panel').hidden=true;byId('case-hero').hidden=false;}previousFocus?.focus({preventScroll:true});});
 function makeSpinCard(memory){const card=document.createElement('figure');card.className='spin-card';card.dataset.id=memory.id;const colors=['#b36b99','#bf83ad','#d99cbd','#d4a8c1'];card.style.setProperty('--card-accent',colors[randomIndex(colors.length)]);const caption=document.createElement('figcaption');caption.textContent=memory.label;card.append(photoElement(memory),caption);return card;}
 function dimensions(){const card=track.querySelector('.spin-card');return {width:card?.getBoundingClientRect().width||180,gap:parseFloat(getComputedStyle(track).gap)||12,viewport:windowEl.clientWidth};}
 function targetFor(index){const d=dimensions();return d.viewport/2-d.width/2-index*(d.width+d.gap);}
@@ -61,7 +61,7 @@ async function openCase(){
  if(!loaded){spinning=false;syncInterface();byId('spin-status').textContent='Не удалось загрузить подарок. Попытка не потрачена — попробуй ещё раз ♡';return;}
  state=readState();const next=GiftState.reserve(state,prize.id);
  if(!next||!storeState(next)){spinning=false;syncInterface();byId('spin-status').textContent='Не получилось сохранить открытие. Разреши сохранение данных в браузере и попробуй снова ♡';return;}
- syncInterface();const winnerIndex=46+randomIndex(5),sequence=Array.from({length:winnerIndex+8},()=>memories[randomIndex(memories.length)]);sequence[winnerIndex]={id:prize.id,src:prize.image,label:prize.name};
+ syncInterface();byId('case-hero').hidden=true;byId('roulette-panel').hidden=false;const winnerIndex=46+randomIndex(5),sequence=Array.from({length:winnerIndex+8},()=>memories[randomIndex(memories.length)]);sequence[winnerIndex]={id:prize.id,src:prize.image,label:prize.name};
  track.replaceChildren(...sequence.map(makeSpinCard));const start=targetFor(3),end=targetFor(winnerIndex);track.style.transform=`translateX(${start}px)`;
  byId('spin-status').textContent='Пока крутятся воспоминания, твой подарок уже ждёт ♡';
  const duration=reducedMotion.matches?1:byId('quick-spin').checked?3500:10000;
