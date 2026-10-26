@@ -77,7 +77,7 @@ pages.find(page=>page.friends).photos[1]={src:'assets/photos/friend-artur.jpg',p
 pages.find(page=>page.friends).photos[2]={src:'assets/photos/friend-oksana.jpg',position:'center 40%'};
 pages.find(page=>page.friends).photos[3]={src:'assets/photos/friend-girls.jpg',position:'center 60%'};
 pages.find(page=>page.friends).photos[0]={src:'assets/photos/friend-den.jpg',position:'right center'};
-pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim-v2.jpg',position:'center'};
+pages.find(page=>page.friends).photos[4]={src:'assets/photos/friend-maxim-v2.jpg',position:'right center'};
 pages.find(page=>page.friends).photoNotes=['Ксюша с днем рождения желаю тебе всего всего самого наилучшего пусть в жизни будут только победы что бы все мечты сбывались что бы все цели достигались что бы рядом были верные и любящие люди с днем рождение'];
 pages.find(page=>page.friends).photoNotes[1]='чушка поздравляю тебя с твоим 18 летием!! Желаю счастья и здоровья,желаю что бы у вас со стасом был бесконечный брак и деньги на додеп ,я очень рад что познакомился с тобой в так называемом шаге ,желаю тебе всего самого наилучшего ,по больше тебе денег,хороших подружек, еще раз поздравляю с 18 летием Ксения';
 pages.find(page=>page.friends).photoNotes[2]=`Холодно холодно но ничто 
@@ -91,6 +91,7 @@ pages.find(page=>page.friends).photoNotes[3]=`Аружан
 
 Анель
 С днем рождения дочь моя! Желаю тебе, чтобы все твои цели и мечты сбылись. Пусть жизнь твоя будет полна красок и ярких эмоций. Счастья и крепкой любви вам со Стасом! (жду приглашения на вашу свадьбу😋)`;
+pages.find(page=>page.friends).photoNotes[3]+='\n\nСаша\nС днем рождения внучка, бабушка Саша,желает тебе всего самого наилучшего, бабок, прокладок, здоровья , чтобы поступила туда куда хочешь. И діточок як на небі зірочок';
 const finale=pages.find(page=>page.smile);
 finale.photos=[28,29,30,31,32].map(id=>({src:`assets/photos/memory-${id}.jpg`,position:id===32?'center 50%':'center 40%'}));
 finale.photos[0]={src:'assets/photos/final-bench.jpg',position:'center 45%'};
