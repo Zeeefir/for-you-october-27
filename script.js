@@ -115,7 +115,7 @@ let current = 0;
 try{
   const savedSlide=sessionStorage.getItem('birthday-current-slide');
   const savedIndex=pages.findIndex(page=>page.key===savedSlide);
-  if(savedIndex>=0)current=savedIndex;
+  if(savedIndex>=0&&!new URLSearchParams(location.search).has('start'))current=savedIndex;
 }catch{}
 const $ = id => document.getElementById(id);
 const photoPath = (page, slot) => pages[page].photos[slot].src;
