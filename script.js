@@ -196,7 +196,7 @@ function render() {
     const img = document.createElement('img'); img.alt = label;
     img.style.objectPosition=page.photos[i].position;
     img.decoding='async';
-    img.loading=page.gallery?'lazy':'eager';
+    img.loading='eager';
     img.onload = () => area.replaceChildren(img); img.onerror = () => img.remove(); if(photoPath(current,i))img.src = photoPath(current, i);
     if(page.friends)area.querySelector('.placeholder-text').textContent='здесь будет фото';
     if(page.gallery){const description=document.createElement('figcaption');description.className='gallery-memory-caption';description.textContent=label;front.append(description,area);inner.append(front);figure.append(inner);return figure;}
