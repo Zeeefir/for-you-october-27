@@ -79,7 +79,7 @@ const tickerItems=memories.slice(0,12);for(const memory of [...tickerItems,...ti
 if(!reducedMotion.matches)for(let i=0;i<(innerWidth<600?12:22);i++){const heart=document.createElement('span');heart.className='gift-heart';heart.textContent='♡';heart.style.cssText=`left:${Math.random()*97}%;--size:${16+Math.random()*25}px;--duration:${25+Math.random()*20}s;--delay:-${Math.random()*40}s`;byId('gift-hearts').append(heart);}
 function hasPromo(){try{return localStorage.getItem('kitty-love-promo-v3')==='yes';}catch{return false;}}
 function renderInventory(){
- byId('gift-balance').textContent=hasPromo()?8130-state.openings.length*2710:0;
+ const balance=hasPromo()?Math.max(0,8130-state.openings.length*2710):0;byId('gift-balance').textContent=balance;byId('header-balance').textContent=balance+' ♡';
  const grid=byId('inventory');grid.replaceChildren();
  const opened=state.openings.filter(e=>e.status==='opened');
  if(!opened.length){grid.textContent='Здесь появятся твои подарки после открытия ♡';return;}
