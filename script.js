@@ -296,7 +296,7 @@ $('close-audio').onclick=()=>$('audio-dialog').close();
 $('audio-dialog').addEventListener('close',()=>{
   $('voice').pause();
 
-  else if(pages[current].audio){$('caption').textContent='Обнимаю крепко. С днём рождения, солнышко ♡';}
+
 });
 $('voice').addEventListener('loadedmetadata',()=>{$('voice').hidden=false;});
 $('voice').addEventListener('error',()=>{$('audio-note').textContent='Не удалось загрузить запись. Проверь интернет и обнови страницу ♡';});
